@@ -23,15 +23,8 @@ const links = [
   {
     title: "Instagram",
     description: "Aktivitas, karya, dan personal update.",
-    url: "https://www.instagram.com/riyoooooo/",
+    url: "https://www.instagram.com/mhmmd_rayfy?igsh=b2RrOXk0NDN5OTNj",
     icon: "instagram",
-    enabled: true,
-  },
-  {
-    title: "Academic Organizer",
-    description: "Aplikasi pengelola tugas dan aktivitas akademik.",
-    url: "https://github.com/muhrafi-fsdev/AcademicOrganizer",
-    icon: "calendar",
     enabled: true,
   },
   {
@@ -39,6 +32,13 @@ const links = [
     description: "Project personal AI assistant yang sedang dikembangkan.",
     url: "https://github.com/muhrafi-fsdev/NUSAMIND-SWIFT",
     icon: "ai",
+    enabled: true,
+  },
+  {
+    title: "Private Portfolio",
+    description: "Website portfolio pribadi untuk menampilkan karya dan project.",
+    url: "https://github.com/muhrafi-fsdev/PrivatePortofolio",
+    icon: "portfolio",
     enabled: true,
   },
 
@@ -66,7 +66,6 @@ const icons = {
   linkedin: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.35 7.77H1.82V22h3.53V7.77ZM3.59 2A2.05 2.05 0 1 0 3.6 6.1 2.05 2.05 0 0 0 3.59 2ZM22 13.84c0-4.28-2.28-6.27-5.33-6.27-2.45 0-3.55 1.35-4.16 2.3v-2.1H8.98V22h3.53v-7.05c0-1.86.35-3.66 2.66-3.66 2.28 0 2.31 2.13 2.31 3.78V22H22v-8.16Z"/></svg>`,
   instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>`,
   portfolio: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4h8v2M3 11h18M10 11v2h4v-2"/></svg>`,
-  calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h2M14 14h2M8 18h2"/></svg>`,
   ai: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="3"/><path d="M9 11h.01M15 11h.01M9 15h6M12 6V3M9 3h6M4 12H2M22 12h-2"/></svg>`,
   shop: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>`,
   store: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10 5 4h14l2 6"/><path d="M5 10v10h14V10M3 10a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0M9 20v-6h6v6"/></svg>`,
