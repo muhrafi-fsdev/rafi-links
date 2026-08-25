@@ -1,5 +1,6 @@
 const shareButton = document.querySelector("#share-button");
 const toast = document.querySelector("#toast");
+const revealItems = document.querySelectorAll("[data-reveal]");
 
 let toastTimer;
 
@@ -12,6 +13,27 @@ function showToast(message) {
   toastTimer = window.setTimeout(() => {
     toast.classList.remove("is-visible");
   }, 2400);
+}
+
+function setupScrollReveal() {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!revealItems.length || reducedMotion || !("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px",
+  });
+
+  revealItems.forEach((item) => observer.observe(item));
+  document.documentElement.classList.add("reveal-enabled");
 }
 
 function legacyCopy(text) {
@@ -47,7 +69,7 @@ async function copyPageUrl() {
 async function sharePage() {
   const shareData = {
     title: document.title,
-    text: "Kunjungi tautan, karya, dan project Muhammad Rafi Priyo.",
+    text: "Kunjungi karya dan project Muhammad Rafi Priyo di bidang web, AI, IoT, dan cybersecurity.",
     url: window.location.href,
   };
 
@@ -69,3 +91,4 @@ async function sharePage() {
 }
 
 shareButton?.addEventListener("click", sharePage);
+setupScrollReveal();

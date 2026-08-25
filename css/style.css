@@ -314,7 +314,7 @@ svg { display: block; }
 
 .expertise-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   padding-inline: var(--gutter);
 }
 
@@ -434,6 +434,7 @@ svg { display: block; }
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 0.92;
+  transition: transform 220ms var(--ease);
 }
 
 .link-arrow {
@@ -605,6 +606,68 @@ svg { display: block; }
 
 .toast.is-visible { transform: translateY(0); visibility: visible; }
 
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes enter-photo {
+  from { opacity: 0; transform: translateY(1.5rem) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes draw-accent {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header,
+  .hero-copy > *,
+  .profile-visual {
+    animation: enter-up 560ms var(--ease) both;
+  }
+
+  .site-header { animation-delay: 40ms; }
+  .hero-copy .eyebrow { animation-delay: 100ms; }
+  .hero-copy h1 { animation-delay: 170ms; }
+  .hero-copy .hero-role { animation-delay: 240ms; }
+  .hero-copy .hero-intro { animation-delay: 300ms; }
+  .hero-copy .hero-actions { animation-delay: 360ms; }
+
+  .profile-visual {
+    animation-name: enter-photo;
+    animation-delay: 220ms;
+    animation-duration: 700ms;
+  }
+
+  .profile-visual::before {
+    animation: draw-accent 620ms var(--ease) 400ms both;
+    transform-origin: bottom;
+  }
+
+  .reveal-enabled [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.4rem);
+  }
+
+  .reveal-enabled [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+  }
+
+  .reveal-enabled .profile-layout [data-reveal]:last-child {
+    transition-delay: 90ms;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .directory-link:hover .link-title { transform: translateX(0.22rem); }
+  .expertise-grid > div { transition: background-color 220ms var(--ease); }
+  .expertise-grid > div:hover { background: rgba(255, 255, 255, 0.06); }
+}
+
 @media (max-width: 1000px) {
   .hero {
     grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr);
@@ -612,9 +675,6 @@ svg { display: block; }
   }
 
   .hero h1 { font-size: clamp(3.25rem, 7.2vw, 5.2rem); }
-  .expertise-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .expertise-grid > div:nth-child(3) { border-top: 1px solid rgba(255, 255, 255, 0.2); }
-  .expertise-grid > div:nth-child(4) { border-top: 1px solid rgba(255, 255, 255, 0.2); }
   .profile-layout { grid-template-columns: 1fr; }
   .focus-panel { max-width: 42rem; }
 }
@@ -628,6 +688,10 @@ svg { display: block; }
 
   .hero h1 { max-width: 13ch; }
   .profile-visual { width: min(92%, 31rem); margin: 1rem 1.25rem 0 0; }
+  .expertise-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .expertise-grid > div:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, 0.2); }
+  .expertise-grid > div:nth-child(even) { border-right: 1px solid rgba(255, 255, 255, 0.2); }
+  .expertise-grid > div:last-child { grid-column: 1 / -1; }
   .section-heading { grid-template-columns: 1fr; gap: 2rem; }
   .section-heading > p { max-width: 38rem; }
   .link-grid { grid-template-columns: 1fr; }
@@ -652,7 +716,8 @@ svg { display: block; }
   .profile-visual::before { top: -1rem; right: -1rem; }
   .photo-index { left: -0.5rem; }
   .expertise-grid { grid-template-columns: 1fr; }
-  .expertise-grid > div { min-height: 4.75rem; border-right: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+  .expertise-grid > div { min-height: 4.75rem; border-top: 0; border-right: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+  .expertise-grid > div:last-child { grid-column: auto; }
   .expertise-grid > div:last-child { border-bottom: 0; }
   .section-heading > div { padding-left: 1rem; border-left-width: 0.3rem; }
   .section-heading h2,
@@ -668,6 +733,7 @@ svg { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .reveal-enabled [data-reveal] { opacity: 1 !important; transform: none !important; }
   *,
   *::before,
   *::after {
