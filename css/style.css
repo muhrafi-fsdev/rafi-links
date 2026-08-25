@@ -621,6 +621,16 @@ svg { display: block; }
   to { transform: scaleY(1); }
 }
 
+@keyframes accent-idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(0.45rem); }
+}
+
+@keyframes index-idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.2rem); }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .site-header,
   .hero-copy > *,
@@ -642,8 +652,14 @@ svg { display: block; }
   }
 
   .profile-visual::before {
-    animation: draw-accent 620ms var(--ease) 400ms both;
+    animation:
+      draw-accent 620ms var(--ease) 400ms both,
+      accent-idle 7s ease-in-out 1.2s infinite;
     transform-origin: bottom;
+  }
+
+  .photo-index {
+    animation: index-idle 5.8s ease-in-out 1.2s infinite;
   }
 
   .reveal-enabled [data-reveal] {
