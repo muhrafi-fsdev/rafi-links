@@ -8,6 +8,8 @@ const storyShareButton = document.querySelector("#story-share");
 const storyDownloadButton = document.querySelector("#story-download");
 const storyCloseButton = document.querySelector("#story-close");
 const storyVariantButtons = document.querySelectorAll("[data-story-variant]");
+const storySecondaryButton = document.querySelector("#story-button-secondary");
+const storySecondaryDownload = document.querySelector("#story-download-secondary");
 const toast = document.querySelector("#toast");
 const revealItems = document.querySelectorAll("[data-reveal]");
 
@@ -160,268 +162,282 @@ function storyFileName(variant = currentStoryVariant) {
   return variant === "minimal" ? "rafi-links-story-minimal.png" : "rafi-links-story-estetik.png";
 }
 
-function drawAestheticBackground(ctx, width, height) {
-  const baseGradient = ctx.createLinearGradient(0, 0, width, height);
-  baseGradient.addColorStop(0, "#f5f2ea");
-  baseGradient.addColorStop(0.46, "#e9e5db");
-  baseGradient.addColorStop(1, "#f7f5ef");
-  ctx.fillStyle = baseGradient;
-  ctx.fillRect(0, 0, width, height);
-
-  const glowOne = ctx.createRadialGradient(width * 0.18, height * 0.14, 30, width * 0.18, height * 0.14, 360);
-  glowOne.addColorStop(0, "rgba(22,75,184,0.24)");
-  glowOne.addColorStop(1, "rgba(22,75,184,0)");
-  ctx.fillStyle = glowOne;
-  ctx.fillRect(0, 0, width, height);
-
-  const glowTwo = ctx.createRadialGradient(width * 0.82, height * 0.85, 20, width * 0.82, height * 0.85, 320);
-  glowTwo.addColorStop(0, "rgba(74,96,147,0.18)");
-  glowTwo.addColorStop(1, "rgba(74,96,147,0)");
-  ctx.fillStyle = glowTwo;
-  ctx.fillRect(0, 0, width, height);
-
-  ctx.strokeStyle = "rgba(21,21,21,0.06)";
+function drawStoryGrid(ctx, width, height, step = 64, opacity = 0.07) {
+  ctx.save();
+  ctx.strokeStyle = `rgba(255,255,255,${opacity})`;
   ctx.lineWidth = 1;
-  for (let x = 0; x < width; x += 72) {
+  for (let x = 0; x <= width; x += step) {
     ctx.beginPath();
     ctx.moveTo(x, 0);
     ctx.lineTo(x, height);
     ctx.stroke();
   }
-  for (let y = 0; y < height; y += 72) {
+  for (let y = 0; y <= height; y += step) {
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(width, y);
     ctx.stroke();
   }
+  ctx.restore();
 }
 
-function drawPhotoCard(ctx, image, x, y, size, colors) {
-  ctx.save();
-  roundRect(ctx, x, y, size, size, 34);
-  ctx.clip();
-  ctx.drawImage(image, x, y, size, size);
-  ctx.restore();
+function drawProfileCrop(ctx, image, x, y, width, height, grayscale = true) {
+  const imageRatio = image.width / image.height;
+  const boxRatio = width / height;
+  let sourceWidth = image.width;
+  let sourceHeight = image.height;
+  let sourceX = 0;
+  let sourceY = 0;
 
-  ctx.strokeStyle = colors.lineStrong;
-  ctx.lineWidth = 2;
-  roundRect(ctx, x, y, size, size, 34);
-  ctx.stroke();
-}
+  if (imageRatio > boxRatio) {
+    sourceWidth = image.height * boxRatio;
+    sourceX = (image.width - sourceWidth) / 2;
+  } else {
+    sourceHeight = image.width / boxRatio;
+    sourceY = Math.max(0, (image.height - sourceHeight) * 0.34);
+  }
 
-function drawBadge(ctx, image, x, y, size, colors) {
   ctx.save();
-  roundRect(ctx, x, y, size, size, 18);
-  ctx.clip();
-  ctx.fillStyle = colors.white;
-  ctx.fillRect(x, y, size, size);
-  ctx.drawImage(image, x, y, size, size);
+  if (grayscale) ctx.filter = "grayscale(1) contrast(1.14) brightness(1.04)";
+  ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height);
   ctx.restore();
-  ctx.strokeStyle = colors.lineStrong;
-  ctx.lineWidth = 2;
-  roundRect(ctx, x, y, size, size, 18);
-  ctx.stroke();
 }
 
 function drawAestheticStory(ctx, width, height, assets) {
-  const colors = {
-    ink: "#151515",
-    muted: "#66645e",
-    blue: "#164bb8",
-    blueSoft: "rgba(22,75,184,0.1)",
-    line: "rgba(21,21,21,0.12)",
-    lineStrong: "rgba(21,21,21,0.72)",
-    white: "#fffdf8",
-  };
+  const blue = "#174fd6";
+  const ink = "#111111";
+  const paper = "#f4f3ef";
+  const white = "#fffefa";
+  const pad = 70;
 
-  drawAestheticBackground(ctx, width, height);
+  ctx.fillStyle = ink;
+  ctx.fillRect(0, 0, width, height);
+  drawStoryGrid(ctx, width, height, 72, 0.065);
 
-  const pad = 74;
-  ctx.strokeStyle = colors.lineStrong;
-  ctx.lineWidth = 3;
+  ctx.fillStyle = blue;
+  ctx.fillRect(width - 220, 0, 220, height);
+
+  ctx.strokeStyle = "rgba(255,255,255,.8)";
+  ctx.lineWidth = 2;
   ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
 
-  ctx.strokeStyle = colors.line;
+  ctx.fillStyle = white;
+  ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("MRP / PERSONAL DIRECTORY / 2026", pad + 28, pad + 54);
+
+  ctx.fillStyle = "rgba(255,255,255,.58)";
+  ctx.font = '500 22px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("WEB  AI  IOT  NETWORK  SECURITY", pad + 28, pad + 94);
+
+  ctx.save();
+  ctx.translate(width - 76, 330);
+  ctx.rotate(Math.PI / 2);
+  ctx.fillStyle = white;
+  ctx.font = '600 22px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("RAFI LINKS / INSTAGRAM STORY", 0, 0);
+  ctx.restore();
+
+  ctx.fillStyle = white;
+  ctx.font = '900 162px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("RAFI", pad + 28, 350);
+  ctx.strokeStyle = white;
+  ctx.lineWidth = 4;
+  ctx.strokeText("LINKS", pad + 112, 495);
+
+  ctx.fillStyle = blue;
+  ctx.fillRect(pad + 30, 548, 315, 58);
+  ctx.fillStyle = white;
+  ctx.font = '700 26px "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("BUILD / TEST / LEARN", pad + 50, 586);
+
+  ctx.fillStyle = "rgba(255,255,255,.72)";
+  ctx.font = '400 31px "Helvetica Neue", Arial, sans-serif';
+  drawWrappedText(ctx, "Portfolio, source code, professional profile, dan personal updates dalam satu halaman.", pad + 30, 680, 640, 46);
+
+  ctx.strokeStyle = "rgba(255,255,255,.34)";
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(pad, 238);
-  ctx.lineTo(width - pad, 238);
-  ctx.moveTo(pad, height - 292);
-  ctx.lineTo(width - pad, height - 292);
+  ctx.moveTo(pad + 30, 820);
+  ctx.lineTo(width - pad - 250, 820);
   ctx.stroke();
 
-  drawBadge(ctx, assets.badgeImage, pad + 30, 110, 100, colors);
-
-  ctx.fillStyle = colors.muted;
-  ctx.font = '500 28px "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("Muhammad Rafi Priyo / Personal Directory", pad + 156, 152);
-
-  ctx.fillStyle = colors.blue;
-  ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("Instagram Story / 9:16", pad + 156, 198);
-
-  drawPhotoCard(ctx, assets.profileImage, width - pad - 270, 110, 196, colors);
-
-  ctx.fillStyle = colors.ink;
-  ctx.font = '500 128px "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("Rafi", pad + 24, 398);
-  ctx.fillText("Links", pad + 24, 512);
-
-  ctx.fillStyle = colors.blue;
-  ctx.font = '700 34px "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("Portfolio · Code · Professional · Personal", pad + 28, 596);
-
-  ctx.fillStyle = colors.muted;
-  ctx.font = '400 35px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, "Versi ringkas untuk melihat karya, source code, profil profesional, dan aktivitas personal saya dalam satu tempat.", pad + 28, 664, width - pad * 2 - 56, 50);
-
-  const boxX = pad + 24;
-  const boxY = 808;
-  const boxW = width - pad * 2 - 48;
-  const boxH = 562;
-  ctx.fillStyle = "rgba(255,253,248,0.74)";
-  roundRect(ctx, boxX, boxY, boxW, boxH, 28);
-  ctx.fill();
-  ctx.strokeStyle = colors.line;
-  ctx.lineWidth = 2;
-  roundRect(ctx, boxX, boxY, boxW, boxH, 28);
-  ctx.stroke();
-
-  const cardGap = 24;
-  const cardW = (boxW - 28 * 2 - cardGap) / 2;
-  const cardH = 200;
   STORY_LINKS.forEach((item, index) => {
-    const row = Math.floor(index / 2);
-    const col = index % 2;
-    const x = boxX + 28 + col * (cardW + cardGap);
-    const y = boxY + 28 + row * (cardH + cardGap);
+    const y = 900 + index * 126;
+    ctx.fillStyle = "#7fa4ff";
+    ctx.font = '600 22px "SFMono-Regular", Consolas, monospace';
+    ctx.fillText(item.index, pad + 30, y);
 
-    ctx.fillStyle = colors.white;
-    roundRect(ctx, x, y, cardW, cardH, 24);
-    ctx.fill();
-    ctx.strokeStyle = colors.line;
-    roundRect(ctx, x, y, cardW, cardH, 24);
+    ctx.fillStyle = white;
+    ctx.font = '900 54px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+    ctx.fillText(item.title.toUpperCase(), pad + 108, y + 8);
+
+    ctx.fillStyle = "rgba(255,255,255,.52)";
+    ctx.font = '400 22px "Helvetica Neue", Arial, sans-serif';
+    ctx.fillText(item.detail, pad + 110, y + 42);
+
+    ctx.strokeStyle = "rgba(255,255,255,.16)";
+    ctx.beginPath();
+    ctx.moveTo(pad + 30, y + 72);
+    ctx.lineTo(width - pad - 250, y + 72);
     ctx.stroke();
-
-    ctx.fillStyle = colors.blue;
-    ctx.font = '600 20px "SFMono-Regular", Consolas, monospace';
-    ctx.fillText(item.index, x + 26, y + 36);
-
-    ctx.fillStyle = colors.ink;
-    ctx.font = '500 54px "Helvetica Neue", Arial, sans-serif';
-    ctx.fillText(item.title, x + 26, y + 96);
-
-    ctx.fillStyle = colors.muted;
-    ctx.font = '400 24px "Helvetica Neue", Arial, sans-serif';
-    drawWrappedText(ctx, item.detail, x + 26, y + 136, cardW - 52, 32);
   });
 
-  ctx.fillStyle = colors.white;
-  roundRect(ctx, pad + 26, height - 250, 250, 250, 22);
-  ctx.fill();
-  ctx.strokeStyle = colors.line;
-  roundRect(ctx, pad + 26, height - 250, 250, 250, 22);
+  const photoX = 570;
+  const photoY = 855;
+  const photoW = 390;
+  const photoH = 680;
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(photoX + 44, photoY);
+  ctx.lineTo(photoX + photoW, photoY);
+  ctx.lineTo(photoX + photoW, photoY + photoH);
+  ctx.lineTo(photoX, photoY + photoH);
+  ctx.lineTo(photoX, photoY + 96);
+  ctx.closePath();
+  ctx.clip();
+  drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
+  ctx.restore();
+  ctx.strokeStyle = "rgba(255,255,255,.8)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(photoX, photoY, photoW, photoH);
+
+  ctx.strokeStyle = blue;
+  ctx.lineWidth = 9;
+  ctx.beginPath();
+  ctx.arc(742, 1188, 238, Math.PI * .18, Math.PI * 1.48);
   ctx.stroke();
-  ctx.drawImage(assets.qrImage, pad + 45, height - 231, 212, 212);
 
-  ctx.fillStyle = colors.blue;
+  ctx.fillStyle = paper;
+  ctx.fillRect(pad + 28, height - 316, 250, 250);
+  ctx.drawImage(assets.qrImage, pad + 48, height - 296, 210, 210);
+
+  ctx.fillStyle = white;
   ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("Scan or visit", pad + 316, height - 176);
+  ctx.fillText("SCAN / OPEN", pad + 316, height - 220);
+  ctx.font = '900 66px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("RAFI LINKS", pad + 316, height - 142);
+  ctx.fillStyle = "rgba(255,255,255,.58)";
+  ctx.font = '400 25px "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText(STORY_URL.replace(/^https?:\/\//, ""), pad + 316, height - 96);
 
-  ctx.fillStyle = colors.ink;
-  ctx.font = '500 68px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, "Buka Rafi Links", pad + 316, height - 98, width - (pad + 316) - 36, 74);
-
-  ctx.fillStyle = colors.muted;
-  ctx.font = '400 28px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), pad + 316, height - 32, width - (pad + 316) - 36, 36);
+  ctx.fillStyle = white;
+  for (let i = 0; i < 5; i += 1) {
+    for (let j = 0; j < 5; j += 1) {
+      if ((i + j) % 2 === 0) ctx.fillRect(width - 170 + i * 16, height - 178 + j * 16, 16, 16);
+    }
+  }
 }
 
 function drawMinimalStory(ctx, width, height, assets) {
-  const colors = {
-    paper: "#f3f0e8",
-    white: "#fffdf8",
-    ink: "#151515",
-    muted: "#66645e",
-    blue: "#164bb8",
-    line: "rgba(21,21,21,0.12)",
-    lineStrong: "rgba(21,21,21,0.72)",
-  };
+  const blue = "#174fd6";
+  const ink = "#111111";
+  const paper = "#f4f3ef";
+  const muted = "#6b6b66";
+  const pad = 78;
 
-  ctx.fillStyle = colors.paper;
+  ctx.fillStyle = paper;
   ctx.fillRect(0, 0, width, height);
 
-  const pad = 88;
-  ctx.strokeStyle = colors.lineStrong;
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = "rgba(17,17,17,.09)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x <= width; x += 72) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, height);
+    ctx.stroke();
+  }
+  for (let y = 0; y <= height; y += 72) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(width, y);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 2;
   ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
 
-  drawBadge(ctx, assets.badgeImage, pad + 26, pad + 26, 78, colors);
+  ctx.fillStyle = blue;
+  ctx.fillRect(pad, pad, 86, 86);
+  ctx.fillStyle = "#fffefa";
+  ctx.font = '900 48px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("R", pad + 27, pad + 58);
 
-  drawPhotoCard(ctx, assets.profileImage, width - pad - 222, pad + 26, 136, colors);
+  ctx.fillStyle = ink;
+  ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 118, pad + 38);
+  ctx.fillStyle = muted;
+  ctx.font = '500 21px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("PERSONAL INDEX / 2026", pad + 118, pad + 74);
 
-  ctx.fillStyle = colors.blue;
-  ctx.font = '600 22px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("Minimal version", pad + 128, pad + 66);
-  ctx.fillText("Muhammad Rafi Priyo", pad + 128, pad + 100);
+  ctx.fillStyle = ink;
+  ctx.font = '900 152px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("RAFI", pad + 24, 340);
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 4;
+  ctx.strokeText("LINKS", pad + 108, 474);
 
-  ctx.fillStyle = colors.ink;
-  ctx.font = '500 112px "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("Rafi", pad + 20, 360);
-  ctx.fillText("Links", pad + 20, 462);
+  ctx.fillStyle = blue;
+  ctx.fillRect(width - pad - 148, 248, 148, 148);
+  ctx.fillStyle = white;
+  ctx.font = '900 74px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("↘", width - pad - 114, 350);
 
-  ctx.fillStyle = colors.muted;
-  ctx.font = '400 34px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, "Ringkas, informatif, dan langsung menuju karya, kode, serta profil saya.", pad + 24, 560, width - pad * 2 - 48, 48);
+  ctx.fillStyle = muted;
+  ctx.font = '400 31px "Helvetica Neue", Arial, sans-serif';
+  drawWrappedText(ctx, "Four links. One place. No unnecessary noise.", pad + 28, 590, 610, 46);
 
-  const lineY = 698;
-  ctx.strokeStyle = colors.lineStrong;
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = ink;
   ctx.beginPath();
-  ctx.moveTo(pad, lineY);
-  ctx.lineTo(width - pad, lineY);
+  ctx.moveTo(pad, 710);
+  ctx.lineTo(width - pad, 710);
   ctx.stroke();
 
   STORY_LINKS.forEach((item, index) => {
-    const y = 784 + index * 126;
-    ctx.fillStyle = colors.blue;
+    const y = 820 + index * 130;
+    ctx.fillStyle = blue;
     ctx.font = '600 22px "SFMono-Regular", Consolas, monospace';
-    ctx.fillText(item.index, pad + 20, y);
-
-    ctx.fillStyle = colors.ink;
-    ctx.font = '500 56px "Helvetica Neue", Arial, sans-serif';
-    ctx.fillText(item.title, pad + 98, y + 6);
-
-    ctx.fillStyle = colors.muted;
-    ctx.font = '400 24px "Helvetica Neue", Arial, sans-serif';
-    ctx.fillText(item.detail, pad + 102, y + 44);
-
-    ctx.strokeStyle = colors.line;
+    ctx.fillText(item.index, pad + 24, y);
+    ctx.fillStyle = ink;
+    ctx.font = '900 58px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+    ctx.fillText(item.title.toUpperCase(), pad + 106, y + 8);
+    ctx.fillStyle = muted;
+    ctx.font = '400 22px "Helvetica Neue", Arial, sans-serif';
+    ctx.fillText(item.detail, pad + 110, y + 42);
+    ctx.strokeStyle = "rgba(17,17,17,.18)";
     ctx.beginPath();
-    ctx.moveTo(pad + 20, y + 76);
-    ctx.lineTo(width - pad - 20, y + 76);
+    ctx.moveTo(pad + 24, y + 76);
+    ctx.lineTo(width - pad - 24, y + 76);
     ctx.stroke();
   });
 
-  ctx.fillStyle = colors.white;
-  roundRect(ctx, pad + 26, height - 302, 232, 232, 20);
-  ctx.fill();
-  ctx.strokeStyle = colors.line;
-  roundRect(ctx, pad + 26, height - 302, 232, 232, 20);
-  ctx.stroke();
-  ctx.drawImage(assets.qrImage, pad + 44, height - 284, 196, 196);
+  const photoX = width - pad - 302;
+  const photoY = 740;
+  const photoW = 260;
+  const photoH = 520;
+  ctx.save();
+  ctx.globalAlpha = .96;
+  drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
+  ctx.restore();
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(photoX, photoY, photoW, photoH);
 
-  ctx.fillStyle = colors.blue;
-  ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("Direct access", pad + 300, height - 208);
+  ctx.fillStyle = paper;
+  ctx.fillRect(pad + 24, height - 320, 226, 226);
+  ctx.strokeStyle = ink;
+  ctx.strokeRect(pad + 24, height - 320, 226, 226);
+  ctx.drawImage(assets.qrImage, pad + 40, height - 304, 194, 194);
 
-  ctx.fillStyle = colors.ink;
-  ctx.font = '500 74px "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("Scan to open", pad + 300, height - 126);
-
-  ctx.fillStyle = colors.muted;
-  ctx.font = '400 28px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), pad + 300, height - 74, width - (pad + 300) - 24, 38);
+  ctx.fillStyle = blue;
+  ctx.font = '600 23px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("DIRECT ACCESS", pad + 292, height - 232);
+  ctx.fillStyle = ink;
+  ctx.font = '900 68px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText("SCAN TO OPEN", pad + 292, height - 150);
+  ctx.fillStyle = muted;
+  ctx.font = '400 25px "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText(STORY_URL.replace(/^https?:\/\//, ""), pad + 292, height - 104);
 }
 
 async function renderStoryCard(variant = currentStoryVariant) {
@@ -546,6 +562,8 @@ async function handleVariantChange(variant) {
 
 shareButton?.addEventListener("click", sharePage);
 storyButton?.addEventListener("click", openStoryDialog);
+storySecondaryButton?.addEventListener("click", openStoryDialog);
+storySecondaryDownload?.addEventListener("click", () => downloadStory("aesthetic"));
 quickDownloadButton?.addEventListener("click", () => downloadStory("aesthetic"));
 storyShareButton?.addEventListener("click", shareStoryFile);
 storyDownloadButton?.addEventListener("click", () => downloadStory(currentStoryVariant));
