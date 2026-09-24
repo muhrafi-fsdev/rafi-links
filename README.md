@@ -9,11 +9,13 @@
 
 Rafi Links adalah personal index milik **Muhammad Rafi Priyo**—mahasiswa, full-stack developer, dan cybersecurity enthusiast yang mendalami web, AI, IoT, jaringan, serta keamanan siber.
 
-Website ini merangkum portfolio, source code, project, dan profil profesional dalam satu halaman yang ringan:
+Website ini merangkum portfolio, GitHub, LinkedIn, dan Instagram dalam satu halaman yang ringan dan responsif. Struktur project dibuat ringkas dengan file utama `index.html`, `style.css`, dan `script.js`:
 
 **[muhrafi-fsdev.github.io/rafi-links](https://muhrafi-fsdev.github.io/rafi-links/)**
 
 ![Preview Rafi Links](assets/social-preview.webp)
+
+Ikon teknologi pada halaman menggunakan [Simple Icons](https://simpleicons.org/) melalui jsDelivr.
 
 ## Security
 

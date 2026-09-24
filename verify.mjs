@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
+const root = resolve(fileURLToPath(new URL(".", import.meta.url)));
 const html = readFileSync(resolve(root, "index.html"), "utf8");
 const failures = [];
 
@@ -13,7 +13,7 @@ function requireRule(condition, message) {
 const h1Count = (html.match(/<h1\b/gi) ?? []).length;
 const ids = [...html.matchAll(/\sid="([^"]+)"/gi)].map((match) => match[1]);
 const blankLinks = [...html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/gi)].map((match) => match[0]);
-const localAssets = [...html.matchAll(/(?:src|href)="((?:assets|css|js)\/[^"]+)"/gi)].map((match) => match[1]);
+const localAssets = [...html.matchAll(/(?:src|href)="((?:assets\/[^"]+|style\.css|script\.js))"/gi)].map((match) => match[1]);
 
 requireRule(h1Count === 1, `Expected exactly one h1, found ${h1Count}.`);
 requireRule(ids.length === new Set(ids).size, "Duplicate HTML IDs found.");
