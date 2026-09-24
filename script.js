@@ -16,7 +16,7 @@ const revealItems = document.querySelectorAll("[data-reveal]");
 const STORY_URL = "https://muhrafi-fsdev.github.io/rafi-links/";
 const STORY_LINKS = [
   { index: "01", title: "Portfolio", detail: "Project pilihan dan eksperimen" },
-  { index: "02", title: "GitHub", detail: "Code, repository, dan eksperimen teknis" },
+  { index: "02", title: "GitHub", detail: "Kode, repository, dan eksperimen teknis" },
   { index: "03", title: "LinkedIn", detail: "Profil profesional dan koneksi" },
   { index: "04", title: "Instagram", detail: "Aktivitas dan pembaruan personal" },
 ];
@@ -88,7 +88,7 @@ async function copyPageUrl() {
 async function sharePage() {
   const shareData = {
     title: document.title,
-    text: "Kunjungi karya dan project Muhammad Rafi Priyo di bidang web, AI, IoT, dan cybersecurity.",
+    text: "Lihat project, kode, dan profil Muhammad Rafi Priyo di Rafi Links.",
     url: window.location.href,
   };
 
@@ -223,18 +223,18 @@ function drawAestheticStory(ctx, width, height, assets) {
 
   ctx.fillStyle = white;
   ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("MRP / PERSONAL DIRECTORY / 2026", pad + 28, pad + 54);
+  ctx.fillText("MUHAMMAD RAFI PRIYO / 2026", pad + 28, pad + 54);
 
   ctx.fillStyle = "rgba(255,255,255,.58)";
   ctx.font = '500 22px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("WEB  AI  IOT  NETWORK  SECURITY", pad + 28, pad + 94);
+  ctx.fillText("WEB  ·  AI  ·  IOT  ·  JARINGAN  ·  SECURITY", pad + 28, pad + 94);
 
   ctx.save();
   ctx.translate(width - 76, 330);
   ctx.rotate(Math.PI / 2);
   ctx.fillStyle = white;
   ctx.font = '600 22px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("RAFI LINKS / INSTAGRAM STORY", 0, 0);
+  ctx.fillText("RAFI LINKS / STORY INSTAGRAM", 0, 0);
   ctx.restore();
 
   ctx.fillStyle = white;
@@ -248,11 +248,11 @@ function drawAestheticStory(ctx, width, height, assets) {
   ctx.fillRect(pad + 30, 548, 315, 58);
   ctx.fillStyle = white;
   ctx.font = '700 26px "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("BUILD / TEST / LEARN", pad + 50, 586);
+  ctx.fillText("BUAT / UJI / PELAJARI", pad + 50, 586);
 
   ctx.fillStyle = "rgba(255,255,255,.72)";
   ctx.font = '400 31px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, "Portfolio, source code, professional profile, dan personal updates dalam satu halaman.", pad + 30, 680, 640, 46);
+  drawWrappedText(ctx, "Portfolio, source code, profil profesional, dan aktivitas personal dalam satu halaman.", pad + 30, 680, 640, 46);
 
   ctx.strokeStyle = "rgba(255,255,255,.34)";
   ctx.lineWidth = 2;
@@ -313,7 +313,7 @@ function drawAestheticStory(ctx, width, height, assets) {
 
   ctx.fillStyle = white;
   ctx.font = '600 24px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("SCAN / OPEN", pad + 316, height - 220);
+  ctx.fillText("SCAN / BUKA", pad + 316, height - 220);
   ctx.font = '900 66px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
   ctx.fillText("RAFI LINKS", pad + 316, height - 142);
   ctx.fillStyle = "rgba(255,255,255,.58)";
@@ -368,7 +368,7 @@ function drawMinimalStory(ctx, width, height, assets) {
   ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 118, pad + 38);
   ctx.fillStyle = muted;
   ctx.font = '500 21px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("PERSONAL INDEX / 2026", pad + 118, pad + 74);
+  ctx.fillText("HALAMAN PERSONAL / 2026", pad + 118, pad + 74);
 
   ctx.fillStyle = ink;
   ctx.font = '900 152px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
@@ -385,7 +385,7 @@ function drawMinimalStory(ctx, width, height, assets) {
 
   ctx.fillStyle = muted;
   ctx.font = '400 31px "Helvetica Neue", Arial, sans-serif';
-  drawWrappedText(ctx, "Four links. One place. No unnecessary noise.", pad + 28, 590, 610, 46);
+  drawWrappedText(ctx, "Empat tautan utama dalam satu halaman yang ringkas.", pad + 28, 590, 610, 46);
 
   ctx.strokeStyle = ink;
   ctx.beginPath();
@@ -431,10 +431,10 @@ function drawMinimalStory(ctx, width, height, assets) {
 
   ctx.fillStyle = blue;
   ctx.font = '600 23px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("DIRECT ACCESS", pad + 292, height - 232);
+  ctx.fillText("AKSES LANGSUNG", pad + 292, height - 232);
   ctx.fillStyle = ink;
   ctx.font = '900 68px "Arial Narrow", "Helvetica Neue", Arial, sans-serif';
-  ctx.fillText("SCAN TO OPEN", pad + 292, height - 150);
+  ctx.fillText("SCAN UNTUK BUKA", pad + 292, height - 150);
   ctx.fillStyle = muted;
   ctx.font = '400 25px "Helvetica Neue", Arial, sans-serif';
   ctx.fillText(STORY_URL.replace(/^https?:\/\//, ""), pad + 292, height - 104);
@@ -530,8 +530,8 @@ async function shareStoryFile() {
     const storyFile = await ensureStoryFile(currentStoryVariant);
     const shareData = {
       files: [storyFile],
-      title: currentStoryVariant === "minimal" ? "Rafi Links Story Minimal" : "Rafi Links Story Estetik",
-      text: "Rafi Links — portfolio, code, dan profil Muhammad Rafi Priyo.",
+      title: currentStoryVariant === "minimal" ? "Rafi Links Story Minimal" : "Rafi Links Story Editorial",
+      text: "Rafi Links — portfolio, kode, dan profil Muhammad Rafi Priyo.",
     };
 
     if (navigator.canShare?.(shareData) && navigator.share) {
