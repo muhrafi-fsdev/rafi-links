@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data: https://cdn.jsdelivr.net; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data: blob: https://cdn.jsdelivr.net; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#f3f0e8">
   <meta name="color-scheme" content="light">
@@ -56,9 +56,17 @@
     <nav class="header-nav" aria-label="Navigasi utama">
       <a href="#links"><span>01</span>Tautan</a>
       <a href="#profile"><span>02</span>Profil</a>
-      <button class="share-button" id="share-button" type="button" aria-label="Bagikan Rafi Links">
+      <button class="share-button" id="share-button" type="button" aria-label="Bagikan atau salin tautan Rafi Links">
         Bagikan
         <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 14 14 6M7 6h7v7"/></svg>
+      </button>
+      <button class="story-button" id="story-button" type="button" aria-label="Buat story Instagram Rafi Links">
+        Story IG
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5.5 10.5V5.75A1.75 1.75 0 0 1 7.25 4h5.5a1.75 1.75 0 0 1 1.75 1.75v8.5A1.75 1.75 0 0 1 12.75 16h-3.1M5.5 10.5l2.5-2.5M5.5 10.5 8 13"/></svg>
+      </button>
+      <button class="story-download-button" id="story-quick-download" type="button" aria-label="Unduh story Instagram Rafi Links langsung">
+        Download Story
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 3v9M6.75 9.75 10 13l3.25-3.25M4 16h12"/></svg>
       </button>
     </nav>
   </header>
@@ -208,5 +216,38 @@
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog class="story-dialog" id="story-dialog" aria-labelledby="story-dialog-title">
+    <div class="story-dialog__inner">
+      <div class="story-dialog__copy">
+        <p class="eyebrow">Share / Instagram Story</p>
+        <h2 id="story-dialog-title">Bagikan versi ringkas Rafi Links untuk Story IG.</h2>
+        <p>Format dibuat vertikal 9:16 agar nyaman dipakai di Story. Sekarang tersedia dua versi: estetik dengan visual lebih kuat dan versi minimalis yang lebih bersih. Keduanya tetap mengarah langsung ke Rafi Links.</p>
+        <ul class="story-notes">
+          <li>Ukuran story: 1080 × 1920</li>
+          <li>Siap diunduh sebagai PNG</li>
+          <li>Bisa dibagikan langsung dari perangkat yang mendukung</li>
+        </ul>
+        <div class="story-variants" role="tablist" aria-label="Pilih versi story">
+          <button type="button" class="story-variant is-active" id="story-variant-aesthetic" data-story-variant="aesthetic" aria-pressed="true">Estetik</button>
+          <button type="button" class="story-variant" id="story-variant-minimal" data-story-variant="minimal" aria-pressed="false">Minimalis</button>
+        </div>
+        <div class="story-actions">
+          <button type="button" class="story-action primary" id="story-share">Bagikan story</button>
+          <button type="button" class="story-action" id="story-download">Unduh PNG</button>
+          <button type="button" class="story-action muted" id="story-close">Tutup</button>
+        </div>
+        <p class="story-tip">Jika Instagram tidak muncul di perangkatmu, unduh dulu gambarnya lalu unggah manual ke Story. Tambahkan link sticker ke halaman ini bila diperlukan.</p>
+      </div>
+      <div class="story-dialog__preview">
+        <div class="story-frame">
+          <img id="story-preview" alt="Preview story Instagram Rafi Links" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <canvas id="story-canvas" width="1080" height="1920" hidden></canvas>
+
 </body>
 </html>

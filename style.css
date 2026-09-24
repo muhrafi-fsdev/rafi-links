@@ -802,3 +802,251 @@ svg { display: block; }
   .photo-index,
   .toast { border: 1px solid currentColor; }
 }
+
+.story-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0 0 1.25rem;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.story-button svg {
+  width: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: transform 200ms var(--ease);
+}
+
+.story-button:hover svg { transform: translateY(-0.12rem); }
+.no-js .story-button { display: none; }
+
+.story-dialog {
+  width: min(100% - 2rem, 72rem);
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.story-dialog::backdrop {
+  background: rgba(21, 21, 21, 0.58);
+  backdrop-filter: blur(6px);
+}
+
+.story-dialog__inner {
+  display: grid;
+  grid-template-columns: minmax(18rem, 1fr) minmax(16rem, 24rem);
+}
+
+.story-dialog__copy {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-right: 1px solid var(--line);
+}
+
+.story-dialog__copy h2 {
+  margin: 1rem 0 0;
+  font-size: clamp(2rem, 3.4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  max-width: 12ch;
+}
+
+.story-dialog__copy > p {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+.story-notes {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-notes li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.story-notes li::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--blue);
+}
+
+.story-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.story-action {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.2rem;
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.story-action.primary {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+.story-action.muted {
+  color: var(--muted);
+}
+
+.story-tip {
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.story-dialog__preview {
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  background: linear-gradient(180deg, rgba(22,75,184,.08), rgba(22,75,184,0));
+}
+
+.story-frame {
+  width: min(100%, 21rem);
+  aspect-ratio: 9 / 16;
+  padding: 0.7rem;
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+  box-shadow: 0 1.25rem 3rem rgba(21, 21, 21, 0.12);
+}
+
+.story-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--surface);
+}
+
+@media (max-width: 860px) {
+  .story-dialog__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .story-dialog__copy {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 720px) {
+  .header-nav {
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .share-button,
+  .story-button {
+    padding-left: 0.8rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .story-button {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .story-actions {
+    flex-direction: column;
+  }
+
+  .story-action {
+    width: 100%;
+  }
+}
+
+.story-download-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0 0 1.25rem;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.story-download-button svg {
+  width: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: transform 200ms var(--ease);
+}
+
+.story-download-button:hover svg {
+  transform: translateY(0.12rem);
+}
+
+.no-js .story-download-button {
+  display: none;
+}
+
+.story-variants {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.6rem;
+}
+
+.story-variant {
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  cursor: pointer;
+}
+
+.story-variant.is-active {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+@media (max-width: 720px) {
+  .story-download-button {
+    padding-left: 0.8rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .story-download-button {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .story-variants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
