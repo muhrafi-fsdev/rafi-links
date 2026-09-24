@@ -660,7 +660,7 @@ const TRANSLATIONS = {
 
 let toastTimer;
 let storyObjectUrl = "";
-let currentStoryVariant = "aesthetic";
+let currentStoryVariant = "editorial";
 let currentLanguage = "id";
 
 function t(key) {
@@ -902,100 +902,119 @@ function drawEditorialStory(ctx, width, height, assets) {
   const blue = "#2156d8";
   const ink = "#111111";
   const paper = "#f4f3ef";
+  const muted = "#666660";
   const white = "#fffefa";
   const content = storyT();
-  const pad = 64;
-  const stripWidth = 160;
-  const mainRight = width - stripWidth;
+
+  ctx.fillStyle = paper;
+  ctx.fillRect(0, 0, width, height);
+  drawStoryGrid(ctx, width, height, 72, 0.065, "17,17,17");
+
+  const frame = { x: 56, y: 56, w: width - 112, h: height - 112 };
+  const stripW = 148;
+  const main = { x: frame.x + 30, y: frame.y + 30, w: frame.w - stripW - 54, h: frame.h - 60 };
+
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(frame.x, frame.y, frame.w, frame.h);
+  ctx.fillStyle = blue;
+  ctx.fillRect(width - stripW, 0, stripW, height);
 
   ctx.fillStyle = ink;
-  ctx.fillRect(0, 0, width, height);
-  drawStoryGrid(ctx, width, height, 72, 0.06);
-  ctx.fillStyle = blue;
-  ctx.fillRect(mainRight, 0, stripWidth, height);
+  ctx.fillRect(main.x, main.y, main.w, main.h);
+  ctx.strokeStyle = "rgba(255,255,255,.14)";
+  ctx.strokeRect(main.x, main.y, main.w, main.h);
 
-  ctx.strokeStyle = "rgba(255,255,255,.82)";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
-
-  ctx.fillStyle = white;
-  ctx.font = '700 24px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("MUHAMMAD RAFI PRIYO / 2026", pad + 28, 116);
-  ctx.fillStyle = "rgba(255,255,255,.58)";
-  ctx.font = '500 20px system-ui, sans-serif';
-  drawWrappedText(ctx, content.areas, pad + 28, 158, 690, 30, 2);
-
-  ctx.save();
-  ctx.translate(width - 72, 330);
-  ctx.rotate(Math.PI / 2);
-  ctx.fillStyle = white;
-  setFittedFont(ctx, content.side, 680, 20, 13, '"SFMono-Regular", Consolas, monospace', 700);
-  ctx.fillText(content.side, 0, 0);
-  ctx.restore();
+  const innerX = main.x + 36;
+  const innerY = main.y + 42;
+  const photoW = 296;
+  const photoH = 620;
+  const photoX = main.x + main.w - photoW - 34;
+  const photoY = main.y + 130;
+  const textMax = photoX - innerX - 42;
 
   ctx.fillStyle = white;
-  ctx.font = '900 126px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.fillText("RAFI", pad + 26, 330);
+  ctx.font = '700 23px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("MUHAMMAD RAFI PRIYO / 2026", innerX, innerY);
+  ctx.fillStyle = "rgba(255,255,255,.54)";
+  ctx.font = '500 18px system-ui, sans-serif';
+  drawWrappedText(ctx, content.areas, innerX, innerY + 38, textMax, 26, 2);
+
+  ctx.fillStyle = white;
+  ctx.font = '900 118px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.fillText("RAFI", innerX, main.y + 250);
   ctx.strokeStyle = white;
   ctx.lineWidth = 3;
-  ctx.font = '900 120px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.strokeText("LINKS", pad + 90, 438);
+  ctx.font = '900 112px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.strokeText("LINKS", innerX + 84, main.y + 352);
 
   ctx.fillStyle = blue;
-  roundRect(ctx, pad + 28, 488, 360, 58, 0);
+  roundRect(ctx, innerX, main.y + 394, 338, 58, 0);
   ctx.fill();
   ctx.fillStyle = white;
-  setFittedFont(ctx, content.badge, 316, 23, 15, 'system-ui, sans-serif', 800);
-  ctx.fillText(content.badge, pad + 48, 526);
+  setFittedFont(ctx, content.badge, 290, 22, 15, 'system-ui, sans-serif', 800);
+  ctx.fillText(content.badge, innerX + 20, main.y + 431);
 
   ctx.fillStyle = "rgba(255,255,255,.72)";
-  ctx.font = '400 28px system-ui, sans-serif';
-  drawWrappedText(ctx, content.intro, pad + 28, 612, 720, 42, 3);
+  ctx.font = '400 27px system-ui, sans-serif';
+  drawWrappedText(ctx, content.intro, innerX, main.y + 520, textMax, 40, 3);
 
-  ctx.strokeStyle = "rgba(255,255,255,.28)";
-  ctx.beginPath(); ctx.moveTo(pad + 28, 735); ctx.lineTo(mainRight - 42, 735); ctx.stroke();
-
-  const photoX = 632;
-  const photoY = 792;
-  const photoW = 250;
-  const photoH = 500;
   drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
-  ctx.strokeStyle = "rgba(255,255,255,.78)";
+  ctx.strokeStyle = "rgba(255,255,255,.75)";
   ctx.lineWidth = 2;
   ctx.strokeRect(photoX, photoY, photoW, photoH);
-  ctx.strokeStyle = blue;
-  ctx.lineWidth = 8;
+  ctx.fillStyle = blue;
+  ctx.fillRect(photoX + photoW - 120, photoY + 24, 120, 42);
+  ctx.fillStyle = white;
+  ctx.font = '700 14px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText(content.personalIndex, photoX + 16, photoY + photoH + 36);
+
+  ctx.strokeStyle = "rgba(255,255,255,.18)";
   ctx.beginPath();
-  ctx.arc(photoX + photoW / 2, photoY + photoH / 2, 172, Math.PI * .12, Math.PI * 1.55);
+  ctx.moveTo(innerX, 760);
+  ctx.lineTo(photoX - 30, 760);
   ctx.stroke();
 
   storyLinks().forEach((item, index) => {
-    const rowY = 805 + index * 118;
-    ctx.fillStyle = "#86a9ff";
-    ctx.font = '700 20px "SFMono-Regular", Consolas, monospace';
-    ctx.fillText(item.index, pad + 30, rowY);
+    const rowY = 828 + index * 126;
+    ctx.fillStyle = "#8baafc";
+    ctx.font = '700 18px "SFMono-Regular", Consolas, monospace';
+    ctx.fillText(item.index, innerX, rowY);
     ctx.fillStyle = white;
-    ctx.font = '900 42px "Arial Black", Arial, system-ui, sans-serif';
-    ctx.fillText(item.title.toUpperCase(), pad + 98, rowY + 5);
-    ctx.fillStyle = "rgba(255,255,255,.55)";
+    setFittedFont(ctx, item.title.toUpperCase(), textMax - 50, 40, 26, '"Arial Black", Arial, system-ui, sans-serif', 900);
+    ctx.fillText(item.title.toUpperCase(), innerX + 64, rowY + 4);
+    ctx.fillStyle = "rgba(255,255,255,.54)";
     ctx.font = '400 18px system-ui, sans-serif';
-    drawWrappedText(ctx, item.detail, pad + 100, rowY + 36, 405, 26, 2);
-    ctx.strokeStyle = "rgba(255,255,255,.14)";
-    ctx.beginPath(); ctx.moveTo(pad + 30, rowY + 78); ctx.lineTo(565, rowY + 78); ctx.stroke();
+    drawWrappedText(ctx, item.detail, innerX + 64, rowY + 34, textMax - 64, 26, 2);
+    ctx.strokeStyle = "rgba(255,255,255,.12)";
+    ctx.beginPath();
+    ctx.moveTo(innerX, rowY + 78);
+    ctx.lineTo(photoX - 30, rowY + 78);
+    ctx.stroke();
   });
 
+  const qrX = innerX;
+  const qrY = main.y + main.h - 276;
   ctx.fillStyle = paper;
-  ctx.fillRect(pad + 28, height - 320, 232, 232);
-  ctx.drawImage(assets.qrImage, pad + 45, height - 303, 198, 198);
+  ctx.fillRect(qrX, qrY, 204, 204);
+  ctx.drawImage(assets.qrImage, qrX + 16, qrY + 16, 172, 172);
 
   ctx.fillStyle = white;
-  setFittedFont(ctx, content.scanOpen, 520, 21, 14, '"SFMono-Regular", Consolas, monospace', 700);
-  ctx.fillText(content.scanOpen, pad + 300, height - 236);
-  ctx.font = '900 58px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.fillText("RAFI LINKS", pad + 300, height - 166);
+  ctx.font = '700 20px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText(content.scanOpen, qrX + 236, qrY + 56);
+  ctx.font = '900 54px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.fillText("RAFI LINKS", qrX + 236, qrY + 134);
   ctx.fillStyle = "rgba(255,255,255,.58)";
-  ctx.font = '400 22px system-ui, sans-serif';
-  ctx.fillText(STORY_URL.replace(/^https?:\/\//, ""), pad + 300, height - 118);
+  ctx.font = '400 20px system-ui, sans-serif';
+  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), qrX + 236, qrY + 176, 360, 28, 2);
+
+  ctx.save();
+  ctx.translate(width - 62, 276);
+  ctx.rotate(Math.PI / 2);
+  ctx.fillStyle = white;
+  setFittedFont(ctx, content.side, 720, 19, 13, '"SFMono-Regular", Consolas, monospace', 700);
+  ctx.fillText(content.side, 0, 0);
+  ctx.restore();
 }
 
 function drawMinimalStory(ctx, width, height, assets) {
@@ -1004,7 +1023,7 @@ function drawMinimalStory(ctx, width, height, assets) {
   const paper = "#f4f3ef";
   const muted = "#666660";
   const content = storyT();
-  const pad = 72;
+  const pad = 64;
 
   ctx.fillStyle = paper;
   ctx.fillRect(0, 0, width, height);
@@ -1014,71 +1033,76 @@ function drawMinimalStory(ctx, width, height, assets) {
   ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
 
   ctx.fillStyle = blue;
-  ctx.fillRect(pad, pad, 82, 82);
-  ctx.fillStyle = "#fff";
-  ctx.font = '900 46px "Arial Black", Arial, sans-serif';
-  ctx.fillText("R", pad + 25, pad + 57);
+  ctx.fillRect(width - 178, pad, 114, height - pad * 2);
 
   ctx.fillStyle = ink;
   ctx.font = '700 22px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 112, pad + 36);
+  ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 28, pad + 42);
   ctx.fillStyle = muted;
-  setFittedFont(ctx, content.personalIndex, 470, 19, 13, 'system-ui, sans-serif', 500);
-  ctx.fillText(content.personalIndex, pad + 112, pad + 72);
+  setFittedFont(ctx, content.personalIndex, 420, 18, 13, 'system-ui, sans-serif', 500);
+  ctx.fillText(content.personalIndex, pad + 28, pad + 76);
 
   ctx.fillStyle = ink;
-  ctx.font = '900 116px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.fillText("RAFI", pad + 22, 322);
+  ctx.font = '900 112px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.fillText("RAFI", pad + 20, 314);
   ctx.strokeStyle = ink;
   ctx.lineWidth = 3;
-  ctx.strokeText("LINKS", pad + 86, 426);
+  ctx.strokeText("LINKS", pad + 84, 418);
 
-  const photoX = 650;
-  const photoY = 188;
-  const photoW = 280;
-  const photoH = 390;
+  ctx.fillStyle = muted;
+  ctx.font = '400 28px system-ui, sans-serif';
+  drawWrappedText(ctx, content.minimalIntro, pad + 24, 508, 490, 40, 3);
+
+  const photoX = 596;
+  const photoY = 196;
+  const photoW = 248;
+  const photoH = 360;
   drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
   ctx.strokeStyle = ink;
   ctx.lineWidth = 2;
   ctx.strokeRect(photoX, photoY, photoW, photoH);
 
-  ctx.fillStyle = muted;
-  ctx.font = '400 28px system-ui, sans-serif';
-  drawWrappedText(ctx, content.minimalIntro, pad + 26, 552, 500, 40, 3);
-
-  ctx.strokeStyle = ink;
-  ctx.beginPath(); ctx.moveTo(pad, 680); ctx.lineTo(width - pad, 680); ctx.stroke();
+  ctx.strokeStyle = "rgba(17,17,17,.18)";
+  ctx.beginPath();
+  ctx.moveTo(pad, 640);
+  ctx.lineTo(width - pad - 204, 640);
+  ctx.stroke();
 
   storyLinks().forEach((item, index) => {
-    const y = 785 + index * 135;
+    const y = 760 + index * 150;
     ctx.fillStyle = blue;
-    ctx.font = '700 20px "SFMono-Regular", Consolas, monospace';
+    ctx.font = '700 18px "SFMono-Regular", Consolas, monospace';
     ctx.fillText(item.index, pad + 24, y);
     ctx.fillStyle = ink;
-    ctx.font = '900 48px "Arial Black", Arial, system-ui, sans-serif';
-    ctx.fillText(item.title.toUpperCase(), pad + 98, y + 5);
+    setFittedFont(ctx, item.title.toUpperCase(), 460, 44, 28, '"Arial Black", Arial, system-ui, sans-serif', 900);
+    ctx.fillText(item.title.toUpperCase(), pad + 96, y + 6);
     ctx.fillStyle = muted;
-    ctx.font = '400 19px system-ui, sans-serif';
-    drawWrappedText(ctx, item.detail, pad + 100, y + 38, 690, 27, 2);
+    ctx.font = '400 18px system-ui, sans-serif';
+    drawWrappedText(ctx, item.detail, pad + 96, y + 38, 540, 26, 2);
     ctx.strokeStyle = "rgba(17,17,17,.18)";
-    ctx.beginPath(); ctx.moveTo(pad + 24, y + 84); ctx.lineTo(width - pad - 24, y + 84); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pad + 24, y + 86);
+    ctx.lineTo(width - pad - 24, y + 86);
+    ctx.stroke();
   });
 
+  const qrX = width - 304;
+  const qrY = height - 332;
   ctx.fillStyle = paper;
-  ctx.fillRect(pad + 24, height - 315, 220, 220);
+  ctx.fillRect(qrX, qrY, 188, 188);
   ctx.strokeStyle = ink;
-  ctx.strokeRect(pad + 24, height - 315, 220, 220);
-  ctx.drawImage(assets.qrImage, pad + 40, height - 299, 188, 188);
+  ctx.strokeRect(qrX, qrY, 188, 188);
+  ctx.drawImage(assets.qrImage, qrX + 14, qrY + 14, 160, 160);
 
   ctx.fillStyle = blue;
-  setFittedFont(ctx, content.directAccess, 570, 21, 14, '"SFMono-Regular", Consolas, monospace', 700);
-  ctx.fillText(content.directAccess, pad + 290, height - 226);
+  ctx.font = '700 18px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText(content.directAccess, pad + 24, height - 256);
   ctx.fillStyle = ink;
-  ctx.font = '900 54px "Arial Black", Arial, system-ui, sans-serif';
-  drawWrappedText(ctx, content.scanToOpen, pad + 290, height - 162, 580, 62, 2);
+  ctx.font = '900 52px "Arial Black", Arial, system-ui, sans-serif';
+  drawWrappedText(ctx, content.scanToOpen, pad + 24, height - 182, 420, 58, 2);
   ctx.fillStyle = muted;
-  ctx.font = '400 21px system-ui, sans-serif';
-  ctx.fillText(STORY_URL.replace(/^https?:\/\//, ""), pad + 290, height - 105);
+  ctx.font = '400 20px system-ui, sans-serif';
+  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), pad + 24, height - 108, 470, 28, 2);
 }
 
 async function renderStoryCard(variant = currentStoryVariant) {
