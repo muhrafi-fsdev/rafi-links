@@ -1,22 +1,37 @@
 # Rafi Links
 
-[![Status: Live](https://img.shields.io/badge/STATUS-LIVE-164BB8?style=flat-square)](https://muhrafi-fsdev.github.io/rafi-links/)
+[![Status: Live](https://img.shields.io/badge/STATUS-LIVE-2156D8?style=flat-square)](https://muhrafi-fsdev.github.io/rafi-links/)
 ![HTML5: Semantic](https://img.shields.io/badge/HTML5-SEMANTIC-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3: Responsive](https://img.shields.io/badge/CSS3-RESPONSIVE-1572B6?style=flat-square&logo=css&logoColor=white)
 ![JavaScript: Vanilla](https://img.shields.io/badge/JAVASCRIPT-VANILLA-F7DF1E?style=flat-square&logo=javascript&logoColor=111111)
-![GitHub Pages: Ready](https://img.shields.io/badge/GITHUB_PAGES-READY-222222?style=flat-square&logo=github&logoColor=white)
 [![Security and Integrity](https://github.com/muhrafi-fsdev/rafi-links/actions/workflows/security.yml/badge.svg)](https://github.com/muhrafi-fsdev/rafi-links/actions/workflows/security.yml)
 
-Rafi Links adalah personal index milik **Muhammad Rafi Priyo**—mahasiswa, full-stack developer, dan cybersecurity enthusiast yang mendalami web, AI, IoT, jaringan, serta keamanan siber.
+Rafi Links adalah halaman personal **Muhammad Rafi Priyo** yang menghubungkan portfolio, GitHub, LinkedIn, dan Instagram dalam satu tampilan editorial yang ringan dan responsif.
 
-Website ini merangkum portfolio, GitHub, LinkedIn, dan Instagram dalam satu halaman yang ringan dan responsif. Struktur project dibuat ringkas dengan file utama `index.html`, `style.css`, dan `script.js`:
+**Live:** https://muhrafi-fsdev.github.io/rafi-links/
 
-**[muhrafi-fsdev.github.io/rafi-links](https://muhrafi-fsdev.github.io/rafi-links/)**
+## Fitur
 
-![Preview Rafi Links](assets/social-preview.webp)
+- Responsive untuk desktop, tablet, dan smartphone.
+- Pilihan bahasa: Indonesia, English, Bahasa Melayu, ไทย, Tiếng Việt, 中文, dan 日本語.
+- Preferensi bahasa disimpan di browser.
+- Generator Instagram Story 9:16 dalam versi Editorial dan Minimal.
+- Web Share API dengan fallback salin tautan.
+- Tech stack menggunakan ikon Simple Icons melalui jsDelivr.
+- Tanpa framework runtime dan tanpa backend.
 
-Ikon teknologi pada halaman menggunakan [Simple Icons](https://simpleicons.org/) melalui jsDelivr.
+## Struktur
+
+```text
+rafi-links/
+├── index.html
+├── style.css
+├── script.js
+├── verify.mjs
+├── assets/
+└── .github/
+```
 
 ## Security
 
-Repository menggunakan CSP, pemeriksaan integritas statis, CodeQL, dan Dependabot untuk membantu mendeteksi perubahan berisiko. Pelaporan kerentanan mengikuti panduan di [SECURITY.md](SECURITY.md).
+Repository menggunakan Content Security Policy, pemeriksaan integritas statis, CodeQL, dan Dependabot. Pelaporan kerentanan mengikuti panduan di [SECURITY.md](SECURITY.md).
