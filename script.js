@@ -32,6 +32,10 @@ const TRANSLATIONS = {
     languageLabel: "Bahasa",
     languageSelectAria: "Pilih bahasa",
     country: "Indonesia",
+    roleDeveloper: "Pengembang Full-Stack",
+    roleCybersecurity: "Peminat Keamanan Siber",
+    profileDomains: "Web · AI · IoT · Keamanan",
+    storyDialogCode: "STORY / 9:16",
     heroLabel: "Tentang halaman ini",
     heroCopy: "Satu tempat untuk melihat project, source code, profil profesional, dan aktivitas yang saya bagikan.",
     heroDirectoryCta: "Lihat tautan",
@@ -65,7 +69,7 @@ const TRANSLATIONS = {
     focusIoT: "IoT, sensor, dan integrasi data",
     focusSecurity: "Analisis risiko dan pengamanan sistem",
     focusNetwork: "Jaringan dan sistem komunikasi",
-    toolkitCode: "04 / TOOLKIT",
+    toolkitCode: "04 / TEKNOLOGI",
     toolkitTitle: "Teknologi yang sering saya pakai.",
     toolkitCopy: "Daftar ini bukan semua yang pernah saya gunakan, tetapi yang paling sering muncul di project, eksperimen, dan prototype saya.",
     toolkitAria: "Daftar teknologi yang sering digunakan",
@@ -90,7 +94,7 @@ const TRANSLATIONS = {
     storyShareError: "Bagikan story belum tersedia di perangkat ini.",
     storyVariantError: "Versi story belum bisa dimuat.",
     story: {
-      areas: "WEB · AI · IOT · JARINGAN · SECURITY",
+      areas: "WEB · AI · IOT · JARINGAN · KEAMANAN",
       side: "RAFI LINKS / STORY INSTAGRAM",
       badge: "BUAT / UJI / PELAJARI",
       intro: "Portfolio, source code, profil profesional, dan aktivitas personal dalam satu halaman.",
@@ -123,6 +127,10 @@ const TRANSLATIONS = {
     languageLabel: "Language",
     languageSelectAria: "Choose language",
     country: "Indonesia",
+    roleDeveloper: "Full-Stack Developer",
+    roleCybersecurity: "Cybersecurity Enthusiast",
+    profileDomains: "Web · AI · IoT · Security",
+    storyDialogCode: "STORY / 9:16",
     heroLabel: "About this page",
     heroCopy: "One place to view my projects, source code, professional profile, and personal updates.",
     heroDirectoryCta: "View links",
@@ -214,6 +222,10 @@ const TRANSLATIONS = {
     languageLabel: "Bahasa",
     languageSelectAria: "Pilih bahasa",
     country: "Indonesia",
+    roleDeveloper: "Pembangun Full-Stack",
+    roleCybersecurity: "Peminat Keselamatan Siber",
+    profileDomains: "Web · AI · IoT · Keselamatan",
+    storyDialogCode: "STORY / 9:16",
     heroLabel: "Tentang halaman ini",
     heroCopy: "Satu tempat untuk melihat projek, kod sumber, profil profesional dan aktiviti yang saya kongsikan.",
     heroDirectoryCta: "Lihat pautan",
@@ -247,7 +259,7 @@ const TRANSLATIONS = {
     focusIoT: "IoT, sensor dan integrasi data",
     focusSecurity: "Analisis risiko dan pengukuhan sistem",
     focusNetwork: "Rangkaian dan sistem komunikasi",
-    toolkitCode: "04 / TOOLKIT",
+    toolkitCode: "04 / TEKNOLOGI",
     toolkitTitle: "Teknologi yang kerap saya gunakan.",
     toolkitCopy: "Ini bukan semua teknologi yang pernah saya gunakan, tetapi inilah yang paling kerap muncul dalam projek, eksperimen dan prototaip saya.",
     toolkitAria: "Senarai teknologi yang kerap digunakan",
@@ -272,7 +284,7 @@ const TRANSLATIONS = {
     storyShareError: "Perkongsian story tidak tersedia pada peranti ini.",
     storyVariantError: "Versi story ini belum dapat dimuatkan.",
     story: {
-      areas: "WEB · AI · IOT · RANGKAIAN · SECURITY",
+      areas: "WEB · AI · IOT · RANGKAIAN · KESELAMATAN",
       side: "RAFI LINKS / STORY INSTAGRAM",
       badge: "BINA / UJI / PELAJARI",
       intro: "Portfolio, kod sumber, profil profesional dan aktiviti peribadi dalam satu halaman.",
@@ -300,6 +312,10 @@ const TRANSLATIONS = {
     languageLabel: "ภาษา",
     languageSelectAria: "เลือกภาษา",
     country: "อินโดนีเซีย",
+    roleDeveloper: "นักพัฒนา Full-Stack",
+    roleCybersecurity: "ผู้สนใจความปลอดภัยไซเบอร์",
+    profileDomains: "เว็บ · AI · IoT · ความปลอดภัย",
+    storyDialogCode: "สตอรี่ / 9:16",
     heroLabel: "เกี่ยวกับหน้านี้",
     heroCopy: "รวมโปรเจกต์ ซอร์สโค้ด โปรไฟล์วิชาชีพ และอัปเดตส่วนตัวของผมไว้ในที่เดียว",
     heroDirectoryCta: "ดูลิงก์",
@@ -358,7 +374,7 @@ const TRANSLATIONS = {
     storyShareError: "อุปกรณ์นี้ยังไม่รองรับการแชร์ Story",
     storyVariantError: "ยังไม่สามารถโหลดรูปแบบ Story นี้ได้",
     story: {
-      areas: "WEB · AI · IOT · NETWORK · SECURITY",
+      areas: "WEB · AI · IOT · เครือข่าย · ความปลอดภัย",
       side: "RAFI LINKS / INSTAGRAM STORY",
       badge: "สร้าง / ทดสอบ / เรียนรู้",
       intro: "พอร์ตโฟลิโอ ซอร์สโค้ด โปรไฟล์วิชาชีพ และอัปเดตส่วนตัวในหน้าเดียว",
@@ -386,6 +402,10 @@ const TRANSLATIONS = {
     languageLabel: "Ngôn ngữ",
     languageSelectAria: "Chọn ngôn ngữ",
     country: "Indonesia",
+    roleDeveloper: "Lập trình viên Full-Stack",
+    roleCybersecurity: "Quan tâm an ninh mạng",
+    profileDomains: "Web · AI · IoT · An ninh",
+    storyDialogCode: "STORY / 9:16",
     heroLabel: "Về trang này",
     heroCopy: "Một nơi để xem dự án, mã nguồn, hồ sơ nghề nghiệp và các cập nhật cá nhân của tôi.",
     heroDirectoryCta: "Xem liên kết",
@@ -444,7 +464,7 @@ const TRANSLATIONS = {
     storyShareError: "Thiết bị này chưa hỗ trợ chia sẻ Story.",
     storyVariantError: "Chưa thể tải phiên bản Story này.",
     story: {
-      areas: "WEB · AI · IOT · MẠNG · SECURITY",
+      areas: "WEB · AI · IOT · MẠNG · AN NINH",
       side: "RAFI LINKS / INSTAGRAM STORY",
       badge: "XÂY DỰNG / THỬ / HỌC",
       intro: "Portfolio, mã nguồn, hồ sơ nghề nghiệp và cập nhật cá nhân trong một trang.",
@@ -472,6 +492,10 @@ const TRANSLATIONS = {
     languageLabel: "语言",
     languageSelectAria: "选择语言",
     country: "印度尼西亚",
+    roleDeveloper: "全栈开发者",
+    roleCybersecurity: "网络安全爱好者",
+    profileDomains: "Web · AI · IoT · 网络安全",
+    storyDialogCode: "Story / 9:16",
     heroLabel: "关于此页面",
     heroCopy: "在一个页面查看我的项目、源代码、职业资料和个人动态。",
     heroDirectoryCta: "查看链接",
@@ -530,7 +554,7 @@ const TRANSLATIONS = {
     storyShareError: "此设备暂不支持分享 Story。",
     storyVariantError: "暂时无法加载此 Story 版本。",
     story: {
-      areas: "WEB · AI · IOT · 网络 · SECURITY",
+      areas: "WEB · AI · IOT · 网络 · 安全",
       side: "RAFI LINKS / INSTAGRAM STORY",
       badge: "构建 / 测试 / 学习",
       intro: "作品集、源代码、职业资料和个人动态集中在一个页面。",
@@ -558,6 +582,10 @@ const TRANSLATIONS = {
     languageLabel: "言語",
     languageSelectAria: "言語を選択",
     country: "インドネシア",
+    roleDeveloper: "フルスタック開発者",
+    roleCybersecurity: "サイバーセキュリティ",
+    profileDomains: "Web · AI · IoT · セキュリティ",
+    storyDialogCode: "ストーリー / 9:16",
     heroLabel: "このページについて",
     heroCopy: "プロジェクト、ソースコード、プロフィール、個人の更新を一か所で確認できます。",
     heroDirectoryCta: "リンクを見る",
@@ -616,7 +644,7 @@ const TRANSLATIONS = {
     storyShareError: "この端末では Story の共有を利用できません。",
     storyVariantError: "この Story バージョンを読み込めませんでした。",
     story: {
-      areas: "WEB · AI · IOT · NETWORK · SECURITY",
+      areas: "WEB · AI · IOT · ネットワーク · セキュリティ",
       side: "RAFI LINKS / INSTAGRAM STORY",
       badge: "作る / 試す / 学ぶ",
       intro: "ポートフォリオ、ソースコード、プロフィール、個人の更新をひとつのページにまとめています。",
@@ -643,16 +671,6 @@ function storyT() {
   return TRANSLATIONS[currentLanguage]?.story ?? TRANSLATIONS.id.story;
 }
 
-function resolveBrowserLanguage() {
-  const language = navigator.language || "id";
-  if (language.startsWith("zh")) return "zh-CN";
-  if (language.startsWith("ja")) return "ja";
-  if (language.startsWith("th")) return "th";
-  if (language.startsWith("vi")) return "vi";
-  if (language.startsWith("ms")) return "ms";
-  if (language.startsWith("en")) return "en";
-  return "id";
-}
 
 function applyLanguage(language, persist = true) {
   if (!TRANSLATIONS[language]) language = "id";
@@ -680,7 +698,9 @@ function applyLanguage(language, persist = true) {
   if (ogDescription) ogDescription.content = dictionary.ogDescription;
   if (ogLocale) ogLocale.content = dictionary.locale;
   if (languageSelect) languageSelect.value = language;
-  if (persist) localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  if (persist) {
+    try { localStorage.setItem(LANGUAGE_STORAGE_KEY, language); } catch {}
+  }
 
   if (storyDialog?.open) {
     ensureStoryFile(currentStoryVariant).catch(() => showToast(t("storyVariantError")));
@@ -809,6 +829,17 @@ function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = Infin
   return lines.length;
 }
 
+function setFittedFont(ctx, text, maxWidth, startSize, minSize, fontFamily, weight = 700) {
+  let size = startSize;
+  while (size > minSize) {
+    ctx.font = `${weight} ${size}px ${fontFamily}`;
+    if (ctx.measureText(text).width <= maxWidth) return size;
+    size -= 1;
+  }
+  ctx.font = `${weight} ${minSize}px ${fontFamily}`;
+  return minSize;
+}
+
 function setStoryVariant(variant) {
   currentStoryVariant = variant;
   storyVariantButtons.forEach((button) => {
@@ -898,7 +929,7 @@ function drawEditorialStory(ctx, width, height, assets) {
   ctx.translate(width - 72, 330);
   ctx.rotate(Math.PI / 2);
   ctx.fillStyle = white;
-  ctx.font = '700 20px "SFMono-Regular", Consolas, monospace';
+  setFittedFont(ctx, content.side, 680, 20, 13, '"SFMono-Regular", Consolas, monospace', 700);
   ctx.fillText(content.side, 0, 0);
   ctx.restore();
 
@@ -914,8 +945,8 @@ function drawEditorialStory(ctx, width, height, assets) {
   roundRect(ctx, pad + 28, 488, 360, 58, 0);
   ctx.fill();
   ctx.fillStyle = white;
-  ctx.font = '800 23px system-ui, sans-serif';
-  drawWrappedText(ctx, content.badge, pad + 48, 526, 320, 27, 1);
+  setFittedFont(ctx, content.badge, 316, 23, 15, 'system-ui, sans-serif', 800);
+  ctx.fillText(content.badge, pad + 48, 526);
 
   ctx.fillStyle = "rgba(255,255,255,.72)";
   ctx.font = '400 28px system-ui, sans-serif';
@@ -924,9 +955,9 @@ function drawEditorialStory(ctx, width, height, assets) {
   ctx.strokeStyle = "rgba(255,255,255,.28)";
   ctx.beginPath(); ctx.moveTo(pad + 28, 735); ctx.lineTo(mainRight - 42, 735); ctx.stroke();
 
-  const photoX = 610;
-  const photoY = 790;
-  const photoW = 280;
+  const photoX = 632;
+  const photoY = 792;
+  const photoW = 250;
   const photoH = 500;
   drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
   ctx.strokeStyle = "rgba(255,255,255,.78)";
@@ -935,7 +966,7 @@ function drawEditorialStory(ctx, width, height, assets) {
   ctx.strokeStyle = blue;
   ctx.lineWidth = 8;
   ctx.beginPath();
-  ctx.arc(photoX + photoW / 2, photoY + photoH / 2, 185, Math.PI * .12, Math.PI * 1.55);
+  ctx.arc(photoX + photoW / 2, photoY + photoH / 2, 172, Math.PI * .12, Math.PI * 1.55);
   ctx.stroke();
 
   storyLinks().forEach((item, index) => {
@@ -958,7 +989,7 @@ function drawEditorialStory(ctx, width, height, assets) {
   ctx.drawImage(assets.qrImage, pad + 45, height - 303, 198, 198);
 
   ctx.fillStyle = white;
-  ctx.font = '700 21px "SFMono-Regular", Consolas, monospace';
+  setFittedFont(ctx, content.scanOpen, 520, 21, 14, '"SFMono-Regular", Consolas, monospace', 700);
   ctx.fillText(content.scanOpen, pad + 300, height - 236);
   ctx.font = '900 58px "Arial Black", Arial, system-ui, sans-serif';
   ctx.fillText("RAFI LINKS", pad + 300, height - 166);
@@ -992,7 +1023,7 @@ function drawMinimalStory(ctx, width, height, assets) {
   ctx.font = '700 22px "SFMono-Regular", Consolas, monospace';
   ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 112, pad + 36);
   ctx.fillStyle = muted;
-  ctx.font = '500 19px system-ui, sans-serif';
+  setFittedFont(ctx, content.personalIndex, 470, 19, 13, 'system-ui, sans-serif', 500);
   ctx.fillText(content.personalIndex, pad + 112, pad + 72);
 
   ctx.fillStyle = ink;
@@ -1040,7 +1071,7 @@ function drawMinimalStory(ctx, width, height, assets) {
   ctx.drawImage(assets.qrImage, pad + 40, height - 299, 188, 188);
 
   ctx.fillStyle = blue;
-  ctx.font = '700 21px "SFMono-Regular", Consolas, monospace';
+  setFittedFont(ctx, content.directAccess, 570, 21, 14, '"SFMono-Regular", Consolas, monospace', 700);
   ctx.fillText(content.directAccess, pad + 290, height - 226);
   ctx.fillStyle = ink;
   ctx.font = '900 54px "Arial Black", Arial, system-ui, sans-serif';
@@ -1171,6 +1202,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && storyDialog?.open) closeStoryDialog();
 });
 
-const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-applyLanguage(savedLanguage && TRANSLATIONS[savedLanguage] ? savedLanguage : resolveBrowserLanguage(), false);
+let savedLanguage = null;
+try { savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY); } catch {}
+applyLanguage(savedLanguage && TRANSLATIONS[savedLanguage] ? savedLanguage : "id", false);
 setupScrollReveal();
