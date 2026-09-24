@@ -8,6 +8,9 @@ const storyShareButton = document.querySelector("#story-share");
 const storyDownloadButton = document.querySelector("#story-download");
 const storyCloseButton = document.querySelector("#story-close");
 const storyVariantButtons = document.querySelectorAll("[data-story-variant]");
+const shareFormatButtons = document.querySelectorAll("[data-share-format]");
+const storyFrame = document.querySelector(".story-frame");
+const dialogIndex = document.querySelector(".dialog-index");
 const languageSelect = document.querySelector("#language-select");
 const toast = document.querySelector("#toast");
 const revealItems = document.querySelectorAll("[data-reveal]");
@@ -36,6 +39,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "Peminat Keamanan Siber",
     profileDomains: "Web · AI · IoT · Keamanan",
     storyDialogCode: "STORY / 9:16",
+    shareFormatLabel: "Format",
+    shareFormatAria: "Pilih format bagikan",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "Persegi 1:1",
+    squareDialogCode: "POST / 1:1",
     heroLabel: "Tentang halaman ini",
     heroCopy: "Satu tempat untuk melihat project, source code, profil profesional, dan aktivitas yang saya bagikan.",
     heroDirectoryCta: "Lihat tautan",
@@ -74,8 +82,8 @@ const TRANSLATIONS = {
     toolkitCopy: "Daftar ini bukan semua yang pernah saya gunakan, tetapi yang paling sering muncul di project, eksperimen, dan prototype saya.",
     toolkitAria: "Daftar teknologi yang sering digunakan",
     socialAria: "Tautan sosial",
-    storyDialogTitle: "Pilih tampilan story yang ingin dibagikan.",
-    storyDialogCopy: "Versi editorial lebih tegas, sedangkan versi minimal lebih sederhana. Keduanya dibuat dalam ukuran 1080 × 1920.",
+    storyDialogTitle: "Pilih tampilan yang ingin dibagikan.",
+    storyDialogCopy: "Pilih format 9:16 untuk Story atau 1:1 untuk unggahan persegi, lalu pilih gaya visualnya.",
     storyVariantAria: "Pilih versi story",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -131,6 +139,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "Cybersecurity Enthusiast",
     profileDomains: "Web · AI · IoT · Security",
     storyDialogCode: "STORY / 9:16",
+    shareFormatLabel: "Format",
+    shareFormatAria: "Choose share format",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "Square 1:1",
+    squareDialogCode: "POST / 1:1",
     heroLabel: "About this page",
     heroCopy: "One place to view my projects, source code, professional profile, and personal updates.",
     heroDirectoryCta: "View links",
@@ -169,8 +182,8 @@ const TRANSLATIONS = {
     toolkitCopy: "This is not everything I have used, but these are the tools that appear most often in my projects, experiments, and prototypes.",
     toolkitAria: "Frequently used technologies",
     socialAria: "Social links",
-    storyDialogTitle: "Choose the story layout you want to share.",
-    storyDialogCopy: "Editorial is more assertive; Minimal is simpler. Both are generated at 1080 × 1920.",
+    storyDialogTitle: "Choose the layout you want to share.",
+    storyDialogCopy: "Choose 9:16 for Story or 1:1 for a square post, then choose the visual style.",
     storyVariantAria: "Choose story version",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -226,6 +239,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "Peminat Keselamatan Siber",
     profileDomains: "Web · AI · IoT · Keselamatan",
     storyDialogCode: "STORY / 9:16",
+    shareFormatLabel: "Format",
+    shareFormatAria: "Pilih format perkongsian",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "Petak 1:1",
+    squareDialogCode: "HANTARAN / 1:1",
     heroLabel: "Tentang halaman ini",
     heroCopy: "Satu tempat untuk melihat projek, kod sumber, profil profesional dan aktiviti yang saya kongsikan.",
     heroDirectoryCta: "Lihat pautan",
@@ -264,8 +282,8 @@ const TRANSLATIONS = {
     toolkitCopy: "Ini bukan semua teknologi yang pernah saya gunakan, tetapi inilah yang paling kerap muncul dalam projek, eksperimen dan prototaip saya.",
     toolkitAria: "Senarai teknologi yang kerap digunakan",
     socialAria: "Pautan sosial",
-    storyDialogTitle: "Pilih paparan story yang ingin dikongsi.",
-    storyDialogCopy: "Versi Editorial lebih tegas, manakala Minimal lebih ringkas. Kedua-duanya dijana pada saiz 1080 × 1920.",
+    storyDialogTitle: "Pilih paparan yang ingin dikongsi.",
+    storyDialogCopy: "Pilih 9:16 untuk Story atau 1:1 untuk hantaran petak, kemudian pilih gaya visual.",
     storyVariantAria: "Pilih versi story",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -316,6 +334,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "ผู้สนใจความปลอดภัยไซเบอร์",
     profileDomains: "เว็บ · AI · IoT · ความปลอดภัย",
     storyDialogCode: "สตอรี่ / 9:16",
+    shareFormatLabel: "รูปแบบ",
+    shareFormatAria: "เลือกรูปแบบการแชร์",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "สี่เหลี่ยม 1:1",
+    squareDialogCode: "โพสต์ / 1:1",
     heroLabel: "เกี่ยวกับหน้านี้",
     heroCopy: "รวมโปรเจกต์ ซอร์สโค้ด โปรไฟล์วิชาชีพ และอัปเดตส่วนตัวของผมไว้ในที่เดียว",
     heroDirectoryCta: "ดูลิงก์",
@@ -354,8 +377,8 @@ const TRANSLATIONS = {
     toolkitCopy: "รายการนี้ไม่ใช่ทุกอย่างที่ผมเคยใช้ แต่เป็นเทคโนโลยีที่ปรากฏบ่อยที่สุดในโปรเจกต์ การทดลอง และต้นแบบของผม",
     toolkitAria: "เทคโนโลยีที่ใช้บ่อย",
     socialAria: "ลิงก์โซเชียล",
-    storyDialogTitle: "เลือกรูปแบบ Story ที่ต้องการแชร์",
-    storyDialogCopy: "Editorial เด่นชัดกว่า ส่วน Minimal เรียบง่ายกว่า ทั้งสองแบบสร้างที่ขนาด 1080 × 1920",
+    storyDialogTitle: "เลือกรูปแบบที่ต้องการแชร์",
+    storyDialogCopy: "เลือก 9:16 สำหรับ Story หรือ 1:1 สำหรับโพสต์สี่เหลี่ยม แล้วเลือกสไตล์ภาพ",
     storyVariantAria: "เลือกรูปแบบ Story",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -406,6 +429,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "Quan tâm an ninh mạng",
     profileDomains: "Web · AI · IoT · An ninh",
     storyDialogCode: "STORY / 9:16",
+    shareFormatLabel: "Định dạng",
+    shareFormatAria: "Chọn định dạng chia sẻ",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "Vuông 1:1",
+    squareDialogCode: "BÀI ĐĂNG / 1:1",
     heroLabel: "Về trang này",
     heroCopy: "Một nơi để xem dự án, mã nguồn, hồ sơ nghề nghiệp và các cập nhật cá nhân của tôi.",
     heroDirectoryCta: "Xem liên kết",
@@ -444,8 +472,8 @@ const TRANSLATIONS = {
     toolkitCopy: "Đây không phải toàn bộ công nghệ tôi từng dùng, mà là những công cụ xuất hiện thường xuyên nhất trong dự án, thử nghiệm và prototype của tôi.",
     toolkitAria: "Danh sách công nghệ thường dùng",
     socialAria: "Liên kết mạng xã hội",
-    storyDialogTitle: "Chọn bố cục Story bạn muốn chia sẻ.",
-    storyDialogCopy: "Editorial nổi bật hơn, còn Minimal đơn giản hơn. Cả hai đều được tạo ở kích thước 1080 × 1920.",
+    storyDialogTitle: "Chọn bố cục bạn muốn chia sẻ.",
+    storyDialogCopy: "Chọn 9:16 cho Story hoặc 1:1 cho bài đăng vuông, sau đó chọn phong cách hiển thị.",
     storyVariantAria: "Chọn phiên bản Story",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -496,6 +524,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "网络安全爱好者",
     profileDomains: "Web · AI · IoT · 网络安全",
     storyDialogCode: "Story / 9:16",
+    shareFormatLabel: "格式",
+    shareFormatAria: "选择分享格式",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "方形 1:1",
+    squareDialogCode: "帖子 / 1:1",
     heroLabel: "关于此页面",
     heroCopy: "在一个页面查看我的项目、源代码、职业资料和个人动态。",
     heroDirectoryCta: "查看链接",
@@ -534,8 +567,8 @@ const TRANSLATIONS = {
     toolkitCopy: "这并不是我用过的全部技术，而是最常出现在我的项目、实验和原型中的工具。",
     toolkitAria: "常用技术列表",
     socialAria: "社交链接",
-    storyDialogTitle: "选择要分享的 Story 样式。",
-    storyDialogCopy: "Editorial 更有视觉张力，Minimal 更简洁。两种样式均生成 1080 × 1920 图片。",
+    storyDialogTitle: "选择要分享的样式。",
+    storyDialogCopy: "选择 9:16 用于 Story，或 1:1 用于方形帖子，然后选择视觉风格。",
     storyVariantAria: "选择 Story 版本",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -586,6 +619,11 @@ const TRANSLATIONS = {
     roleCybersecurity: "サイバーセキュリティ",
     profileDomains: "Web · AI · IoT · セキュリティ",
     storyDialogCode: "ストーリー / 9:16",
+    shareFormatLabel: "形式",
+    shareFormatAria: "共有形式を選択",
+    shareFormatStory: "Story 9:16",
+    shareFormatSquare: "正方形 1:1",
+    squareDialogCode: "投稿 / 1:1",
     heroLabel: "このページについて",
     heroCopy: "プロジェクト、ソースコード、プロフィール、個人の更新を一か所で確認できます。",
     heroDirectoryCta: "リンクを見る",
@@ -624,8 +662,8 @@ const TRANSLATIONS = {
     toolkitCopy: "これまで使った技術のすべてではなく、プロジェクト、実験、プロトタイプで特によく使うものをまとめています。",
     toolkitAria: "よく使う技術一覧",
     socialAria: "ソーシャルリンク",
-    storyDialogTitle: "共有する Story のデザインを選択してください。",
-    storyDialogCopy: "Editorial は力強く、Minimal はよりシンプルです。どちらも 1080 × 1920 で生成されます。",
+    storyDialogTitle: "共有するデザインを選択してください。",
+    storyDialogCopy: "Story 用の 9:16 または正方形投稿用の 1:1 を選び、その後デザインを選択してください。",
     storyVariantAria: "Story の種類を選択",
     storyEditorial: "Editorial",
     storyMinimal: "Minimal",
@@ -661,6 +699,7 @@ const TRANSLATIONS = {
 let toastTimer;
 let storyObjectUrl = "";
 let currentStoryVariant = "editorial";
+let currentShareFormat = "story";
 let currentLanguage = "id";
 
 function t(key) {
@@ -698,12 +737,13 @@ function applyLanguage(language, persist = true) {
   if (ogDescription) ogDescription.content = dictionary.ogDescription;
   if (ogLocale) ogLocale.content = dictionary.locale;
   if (languageSelect) languageSelect.value = language;
+  if (dialogIndex) dialogIndex.textContent = t(currentShareFormat === "square" ? "squareDialogCode" : "storyDialogCode");
   if (persist) {
     try { localStorage.setItem(LANGUAGE_STORAGE_KEY, language); } catch {}
   }
 
   if (storyDialog?.open) {
-    ensureStoryFile(currentStoryVariant).catch(() => showToast(t("storyVariantError")));
+    ensureStoryFile(currentStoryVariant, currentShareFormat).catch(() => showToast(t("storyVariantError")));
   }
 }
 
@@ -849,8 +889,20 @@ function setStoryVariant(variant) {
   });
 }
 
-function storyFileName(variant = currentStoryVariant) {
-  return variant === "minimal" ? "rafi-links-story-minimal.png" : "rafi-links-story-editorial.png";
+function setShareFormat(format) {
+  currentShareFormat = format === "square" ? "square" : "story";
+  shareFormatButtons.forEach((button) => {
+    const isActive = button.dataset.shareFormat === currentShareFormat;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  storyFrame?.classList.toggle("is-square", currentShareFormat === "square");
+  if (dialogIndex) dialogIndex.textContent = t(currentShareFormat === "square" ? "squareDialogCode" : "storyDialogCode");
+}
+
+function storyFileName(variant = currentStoryVariant, format = currentShareFormat) {
+  const size = format === "square" ? "1x1" : "9x16";
+  return `rafi-links-${size}-${variant}.png`;
 }
 
 function drawStoryGrid(ctx, width, height, step = 64, opacity = 0.07, color = "255,255,255") {
@@ -902,210 +954,184 @@ function drawEditorialStory(ctx, width, height, assets) {
   const blue = "#2156d8";
   const ink = "#111111";
   const paper = "#f4f3ef";
-  const muted = "#666660";
   const white = "#fffefa";
+  const mutedWhite = "rgba(255,255,255,.58)";
   const content = storyT();
 
   ctx.fillStyle = paper;
   ctx.fillRect(0, 0, width, height);
-  drawStoryGrid(ctx, width, height, 72, 0.065, "17,17,17");
+  drawStoryGrid(ctx, width, height, 72, 0.06, "17,17,17");
 
-  const frame = { x: 56, y: 56, w: width - 112, h: height - 112 };
-  const stripW = 148;
-  const main = { x: frame.x + 30, y: frame.y + 30, w: frame.w - stripW - 54, h: frame.h - 60 };
-
+  const frame = { x: 52, y: 52, w: width - 104, h: height - 104 };
+  const railW = 112;
+  const panel = { x: 78, y: 78, w: width - 78 - railW - 26, h: height - 156 };
   ctx.strokeStyle = ink;
   ctx.lineWidth = 2;
   ctx.strokeRect(frame.x, frame.y, frame.w, frame.h);
   ctx.fillStyle = blue;
-  ctx.fillRect(width - stripW, 0, stripW, height);
-
+  ctx.fillRect(width - railW, 0, railW, height);
   ctx.fillStyle = ink;
-  ctx.fillRect(main.x, main.y, main.w, main.h);
-  ctx.strokeStyle = "rgba(255,255,255,.14)";
-  ctx.strokeRect(main.x, main.y, main.w, main.h);
+  ctx.fillRect(panel.x, panel.y, panel.w, panel.h);
 
-  const innerX = main.x + 36;
-  const innerY = main.y + 42;
-  const photoW = 296;
-  const photoH = 620;
-  const photoX = main.x + main.w - photoW - 34;
-  const photoY = main.y + 130;
-  const textMax = photoX - innerX - 42;
+  const padX = panel.x + 34;
+  const right = panel.x + panel.w - 34;
+  ctx.fillStyle = white;
+  ctx.font = '700 21px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("MUHAMMAD RAFI PRIYO / 2026", padX, panel.y + 48);
+  ctx.fillStyle = mutedWhite;
+  ctx.font = '500 17px system-ui, sans-serif';
+  drawWrappedText(ctx, content.areas, padX, panel.y + 82, panel.w - 68, 24, 2);
+
+  const heroTop = panel.y + 128;
+  const photoW = 270;
+  const photoH = 560;
+  const photoX = right - photoW;
+  const photoY = heroTop + 8;
+  const titleW = photoX - padX - 34;
 
   ctx.fillStyle = white;
-  ctx.font = '700 23px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("MUHAMMAD RAFI PRIYO / 2026", innerX, innerY);
-  ctx.fillStyle = "rgba(255,255,255,.54)";
-  ctx.font = '500 18px system-ui, sans-serif';
-  drawWrappedText(ctx, content.areas, innerX, innerY + 38, textMax, 26, 2);
-
-  ctx.fillStyle = white;
-  ctx.font = '900 118px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.fillText("RAFI", innerX, main.y + 250);
+  ctx.font = '900 110px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.fillText("RAFI", padX, heroTop + 128);
   ctx.strokeStyle = white;
   ctx.lineWidth = 3;
-  ctx.font = '900 112px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.strokeText("LINKS", innerX + 84, main.y + 352);
+  ctx.font = '900 102px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.strokeText("LINKS", padX + 62, heroTop + 222);
 
   ctx.fillStyle = blue;
-  roundRect(ctx, innerX, main.y + 394, 338, 58, 0);
-  ctx.fill();
+  ctx.fillRect(padX, heroTop + 270, Math.min(330, titleW), 54);
   ctx.fillStyle = white;
-  setFittedFont(ctx, content.badge, 290, 22, 15, 'system-ui, sans-serif', 800);
-  ctx.fillText(content.badge, innerX + 20, main.y + 431);
+  setFittedFont(ctx, content.badge, Math.min(292, titleW - 30), 21, 14, 'system-ui, sans-serif', 800);
+  ctx.fillText(content.badge, padX + 16, heroTop + 306);
 
-  ctx.fillStyle = "rgba(255,255,255,.72)";
-  ctx.font = '400 27px system-ui, sans-serif';
-  drawWrappedText(ctx, content.intro, innerX, main.y + 520, textMax, 40, 3);
+  ctx.fillStyle = "rgba(255,255,255,.7)";
+  ctx.font = '400 24px system-ui, sans-serif';
+  drawWrappedText(ctx, content.intro, padX, heroTop + 374, titleW, 35, 4);
 
   drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
-  ctx.strokeStyle = "rgba(255,255,255,.75)";
+  ctx.strokeStyle = "rgba(255,255,255,.72)";
   ctx.lineWidth = 2;
   ctx.strokeRect(photoX, photoY, photoW, photoH);
   ctx.fillStyle = blue;
-  ctx.fillRect(photoX + photoW - 120, photoY + 24, 120, 42);
-  ctx.fillStyle = white;
-  ctx.font = '700 14px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText(content.personalIndex, photoX + 16, photoY + photoH + 36);
+  ctx.fillRect(photoX + photoW - 86, photoY + 20, 86, 36);
+  ctx.fillStyle = mutedWhite;
+  setFittedFont(ctx, content.personalIndex, photoW - 18, 14, 10, '"SFMono-Regular", Consolas, monospace', 700);
+  ctx.fillText(content.personalIndex, photoX + 8, photoY + photoH + 26);
 
+  const linksY = heroTop + 630;
   ctx.strokeStyle = "rgba(255,255,255,.18)";
-  ctx.beginPath();
-  ctx.moveTo(innerX, 760);
-  ctx.lineTo(photoX - 30, 760);
-  ctx.stroke();
-
+  ctx.beginPath();ctx.moveTo(padX, linksY - 22);ctx.lineTo(right, linksY - 22);ctx.stroke();
+  const gap = 18;
+  const cardW = (right - padX - gap) / 2;
+  const cardH = 190;
   storyLinks().forEach((item, index) => {
-    const rowY = 828 + index * 126;
-    ctx.fillStyle = "#8baafc";
-    ctx.font = '700 18px "SFMono-Regular", Consolas, monospace';
-    ctx.fillText(item.index, innerX, rowY);
+    const col = index % 2;
+    const row = Math.floor(index / 2);
+    const x = padX + col * (cardW + gap);
+    const y = linksY + row * (cardH + gap);
+    ctx.strokeStyle = "rgba(255,255,255,.2)";
+    ctx.strokeRect(x, y, cardW, cardH);
+    ctx.fillStyle = "#88a8ff";
+    ctx.font = '700 16px "SFMono-Regular", Consolas, monospace';
+    ctx.fillText(item.index, x + 16, y + 27);
     ctx.fillStyle = white;
-    setFittedFont(ctx, item.title.toUpperCase(), textMax - 50, 40, 26, '"Arial Black", Arial, system-ui, sans-serif', 900);
-    ctx.fillText(item.title.toUpperCase(), innerX + 64, rowY + 4);
-    ctx.fillStyle = "rgba(255,255,255,.54)";
-    ctx.font = '400 18px system-ui, sans-serif';
-    drawWrappedText(ctx, item.detail, innerX + 64, rowY + 34, textMax - 64, 26, 2);
-    ctx.strokeStyle = "rgba(255,255,255,.12)";
-    ctx.beginPath();
-    ctx.moveTo(innerX, rowY + 78);
-    ctx.lineTo(photoX - 30, rowY + 78);
-    ctx.stroke();
+    setFittedFont(ctx, item.title.toUpperCase(), cardW - 32, 34, 23, '"Arial Black", Arial, system-ui, sans-serif', 900);
+    ctx.fillText(item.title.toUpperCase(), x + 16, y + 72);
+    ctx.fillStyle = mutedWhite;
+    ctx.font = '400 16px system-ui, sans-serif';
+    drawWrappedText(ctx, item.detail, x + 16, y + 106, cardW - 32, 22, 3);
   });
 
-  const qrX = innerX;
-  const qrY = main.y + main.h - 276;
+  const footerY = 1328;
+  const qrSize = 232;
+  ctx.strokeStyle = "rgba(255,255,255,.18)";
+  ctx.beginPath();ctx.moveTo(padX, footerY - 26);ctx.lineTo(right, footerY - 26);ctx.stroke();
   ctx.fillStyle = paper;
-  ctx.fillRect(qrX, qrY, 204, 204);
-  ctx.drawImage(assets.qrImage, qrX + 16, qrY + 16, 172, 172);
-
+  ctx.fillRect(padX, footerY, qrSize, qrSize);
+  ctx.drawImage(assets.qrImage, padX + 16, footerY + 16, qrSize - 32, qrSize - 32);
   ctx.fillStyle = white;
-  ctx.font = '700 20px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText(content.scanOpen, qrX + 236, qrY + 56);
-  ctx.font = '900 54px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.fillText("RAFI LINKS", qrX + 236, qrY + 134);
-  ctx.fillStyle = "rgba(255,255,255,.58)";
-  ctx.font = '400 20px system-ui, sans-serif';
-  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), qrX + 236, qrY + 176, 360, 28, 2);
+  ctx.font = '700 19px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText(content.scanOpen, padX + 270, footerY + 54);
+  ctx.font = '900 56px "Arial Black", Arial, system-ui, sans-serif';
+  ctx.fillText("RAFI LINKS", padX + 270, footerY + 128);
+  ctx.fillStyle = mutedWhite;
+  ctx.font = '400 19px system-ui, sans-serif';
+  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), padX + 270, footerY + 168, Math.max(280, right - (padX + 270)), 25, 2);
+
+  const bottomY = panel.y + panel.h - 78;
+  ctx.strokeStyle = "rgba(255,255,255,.18)";
+  ctx.beginPath();ctx.moveTo(padX, bottomY - 24);ctx.lineTo(right, bottomY - 24);ctx.stroke();
+  ctx.fillStyle = mutedWhite;
+  ctx.font = '700 14px "SFMono-Regular", Consolas, monospace';
+  ctx.fillText("MUHAMMAD RAFI PRIYO", padX, bottomY);
+  setFittedFont(ctx, content.areas, 390, 14, 10, '"SFMono-Regular", Consolas, monospace', 700);
+  ctx.textAlign = "right";
+  ctx.fillText(content.areas, right, bottomY);
+  ctx.textAlign = "left";
 
   ctx.save();
-  ctx.translate(width - 62, 276);
+  ctx.translate(width - 42, 300);
   ctx.rotate(Math.PI / 2);
   ctx.fillStyle = white;
-  setFittedFont(ctx, content.side, 720, 19, 13, '"SFMono-Regular", Consolas, monospace', 700);
+  setFittedFont(ctx, content.side, 720, 18, 12, '"SFMono-Regular", Consolas, monospace', 700);
   ctx.fillText(content.side, 0, 0);
   ctx.restore();
 }
 
 function drawMinimalStory(ctx, width, height, assets) {
-  const blue = "#2156d8";
-  const ink = "#111111";
-  const paper = "#f4f3ef";
-  const muted = "#666660";
-  const content = storyT();
-  const pad = 64;
+  const blue = "#2156d8", ink = "#111111", paper = "#f4f3ef", muted = "#666660", content = storyT(), pad = 66;
+  ctx.fillStyle = paper; ctx.fillRect(0, 0, width, height); drawStoryGrid(ctx, width, height, 72, .065, "17,17,17");
+  ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
+  ctx.fillStyle = blue; ctx.fillRect(pad, pad, 88, 88);
+  ctx.fillStyle = "#fff"; ctx.font = '900 48px "Arial Black", Arial, sans-serif'; ctx.fillText("R", pad + 27, pad + 61);
+  ctx.fillStyle = ink; ctx.font = '700 20px "SFMono-Regular", Consolas, monospace'; ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 118, pad + 38);
+  ctx.fillStyle = muted; setFittedFont(ctx, content.personalIndex, 470, 17, 12, 'system-ui, sans-serif', 500); ctx.fillText(content.personalIndex, pad + 118, pad + 72);
 
-  ctx.fillStyle = paper;
-  ctx.fillRect(0, 0, width, height);
-  drawStoryGrid(ctx, width, height, 72, 0.07, "17,17,17");
-  ctx.strokeStyle = ink;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
+  const photoX = 620, photoY = 196, photoW = 280, photoH = 390;
+  drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true); ctx.strokeStyle = ink; ctx.strokeRect(photoX, photoY, photoW, photoH);
+  ctx.fillStyle = ink; ctx.font = '900 108px "Arial Black", Arial, system-ui, sans-serif'; ctx.fillText("RAFI", pad + 18, 308);
+  ctx.strokeStyle = ink; ctx.lineWidth = 3; ctx.strokeText("LINKS", pad + 72, 405);
+  ctx.fillStyle = muted; ctx.font = '400 26px system-ui, sans-serif'; drawWrappedText(ctx, content.minimalIntro, pad + 20, 488, 500, 38, 3);
 
-  ctx.fillStyle = blue;
-  ctx.fillRect(width - 178, pad, 114, height - pad * 2);
+  const linksY = 676, gap = 16, cardW = (width - pad * 2 - gap) / 2, cardH = 190;
+  storyLinks().forEach((item, index) => { const col = index % 2, row = Math.floor(index / 2), x = pad + col * (cardW + gap), y = linksY + row * (cardH + gap); ctx.strokeStyle = "rgba(17,17,17,.34)"; ctx.strokeRect(x, y, cardW, cardH); ctx.fillStyle = blue; ctx.font = '700 16px "SFMono-Regular", Consolas, monospace'; ctx.fillText(item.index, x + 16, y + 28); ctx.fillStyle = ink; setFittedFont(ctx, item.title.toUpperCase(), cardW - 32, 34, 23, '"Arial Black", Arial, system-ui, sans-serif', 900); ctx.fillText(item.title.toUpperCase(), x + 16, y + 76); ctx.fillStyle = muted; ctx.font = '400 16px system-ui, sans-serif'; drawWrappedText(ctx, item.detail, x + 16, y + 108, cardW - 32, 22, 3); });
 
-  ctx.fillStyle = ink;
-  ctx.font = '700 22px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 28, pad + 42);
-  ctx.fillStyle = muted;
-  setFittedFont(ctx, content.personalIndex, 420, 18, 13, 'system-ui, sans-serif', 500);
-  ctx.fillText(content.personalIndex, pad + 28, pad + 76);
-
-  ctx.fillStyle = ink;
-  ctx.font = '900 112px "Arial Black", Arial, system-ui, sans-serif';
-  ctx.fillText("RAFI", pad + 20, 314);
-  ctx.strokeStyle = ink;
-  ctx.lineWidth = 3;
-  ctx.strokeText("LINKS", pad + 84, 418);
-
-  ctx.fillStyle = muted;
-  ctx.font = '400 28px system-ui, sans-serif';
-  drawWrappedText(ctx, content.minimalIntro, pad + 24, 508, 490, 40, 3);
-
-  const photoX = 596;
-  const photoY = 196;
-  const photoW = 248;
-  const photoH = 360;
-  drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true);
-  ctx.strokeStyle = ink;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(photoX, photoY, photoW, photoH);
-
-  ctx.strokeStyle = "rgba(17,17,17,.18)";
-  ctx.beginPath();
-  ctx.moveTo(pad, 640);
-  ctx.lineTo(width - pad - 204, 640);
-  ctx.stroke();
-
-  storyLinks().forEach((item, index) => {
-    const y = 760 + index * 150;
-    ctx.fillStyle = blue;
-    ctx.font = '700 18px "SFMono-Regular", Consolas, monospace';
-    ctx.fillText(item.index, pad + 24, y);
-    ctx.fillStyle = ink;
-    setFittedFont(ctx, item.title.toUpperCase(), 460, 44, 28, '"Arial Black", Arial, system-ui, sans-serif', 900);
-    ctx.fillText(item.title.toUpperCase(), pad + 96, y + 6);
-    ctx.fillStyle = muted;
-    ctx.font = '400 18px system-ui, sans-serif';
-    drawWrappedText(ctx, item.detail, pad + 96, y + 38, 540, 26, 2);
-    ctx.strokeStyle = "rgba(17,17,17,.18)";
-    ctx.beginPath();
-    ctx.moveTo(pad + 24, y + 86);
-    ctx.lineTo(width - pad - 24, y + 86);
-    ctx.stroke();
-  });
-
-  const qrX = width - 304;
-  const qrY = height - 332;
-  ctx.fillStyle = paper;
-  ctx.fillRect(qrX, qrY, 188, 188);
-  ctx.strokeStyle = ink;
-  ctx.strokeRect(qrX, qrY, 188, 188);
-  ctx.drawImage(assets.qrImage, qrX + 14, qrY + 14, 160, 160);
-
-  ctx.fillStyle = blue;
-  ctx.font = '700 18px "SFMono-Regular", Consolas, monospace';
-  ctx.fillText(content.directAccess, pad + 24, height - 256);
-  ctx.fillStyle = ink;
-  ctx.font = '900 52px "Arial Black", Arial, system-ui, sans-serif';
-  drawWrappedText(ctx, content.scanToOpen, pad + 24, height - 182, 420, 58, 2);
-  ctx.fillStyle = muted;
-  ctx.font = '400 20px system-ui, sans-serif';
-  drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), pad + 24, height - 108, 470, 28, 2);
+  const footerY = 1430; ctx.strokeStyle = ink; ctx.beginPath(); ctx.moveTo(pad, footerY - 24); ctx.lineTo(width - pad, footerY - 24); ctx.stroke();
+  ctx.fillStyle = paper; ctx.fillRect(pad, footerY, 180, 180); ctx.strokeRect(pad, footerY, 180, 180); ctx.drawImage(assets.qrImage, pad + 14, footerY + 14, 152, 152);
+  ctx.fillStyle = blue; ctx.font = '700 18px "SFMono-Regular", Consolas, monospace'; ctx.fillText(content.directAccess, pad + 216, footerY + 48);
+  ctx.fillStyle = ink; ctx.font = '900 48px "Arial Black", Arial, system-ui, sans-serif'; drawWrappedText(ctx, content.scanToOpen, pad + 216, footerY + 110, 560, 54, 2);
+  ctx.fillStyle = muted; ctx.font = '400 18px system-ui, sans-serif'; drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), pad + 216, footerY + 158, 560, 24, 2);
 }
 
-async function renderStoryCard(variant = currentStoryVariant) {
+function drawSquareEditorial(ctx, width, height, assets) {
+  const blue = "#2156d8", ink = "#111111", paper = "#f4f3ef", white = "#fffefa", mutedWhite = "rgba(255,255,255,.58)", content = storyT();
+  ctx.fillStyle = paper; ctx.fillRect(0, 0, width, height); drawStoryGrid(ctx, width, height, 64, .06, "17,17,17");
+  const outer = 44, rail = 96; ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.strokeRect(outer, outer, width - outer * 2, height - outer * 2); ctx.fillStyle = blue; ctx.fillRect(width - rail, 0, rail, height);
+  const panel = { x: 68, y: 68, w: width - 68 - rail - 26, h: height - 136 }; ctx.fillStyle = ink; ctx.fillRect(panel.x, panel.y, panel.w, panel.h);
+  const x = panel.x + 30, right = panel.x + panel.w - 30;
+  ctx.fillStyle = white; ctx.font = '700 18px "SFMono-Regular", Consolas, monospace'; ctx.fillText("MUHAMMAD RAFI PRIYO / 2026", x, panel.y + 40);
+  ctx.fillStyle = mutedWhite; ctx.font = '500 14px system-ui, sans-serif'; drawWrappedText(ctx, content.areas, x, panel.y + 68, 500, 20, 2);
+  ctx.fillStyle = white; ctx.font = '900 84px "Arial Black", Arial, sans-serif'; ctx.fillText("RAFI", x, panel.y + 180); ctx.strokeStyle = white; ctx.lineWidth = 2.5; ctx.font = '900 80px "Arial Black", Arial, sans-serif'; ctx.strokeText("LINKS", x + 54, panel.y + 252);
+  const photoW = 250, photoH = 300, photoX = right - photoW, photoY = panel.y + 92; drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true); ctx.strokeStyle = "rgba(255,255,255,.7)"; ctx.strokeRect(photoX, photoY, photoW, photoH);
+  ctx.fillStyle = blue; ctx.fillRect(x, panel.y + 286, 286, 46); ctx.fillStyle = white; setFittedFont(ctx, content.badge, 252, 18, 12, 'system-ui, sans-serif', 800); ctx.fillText(content.badge, x + 14, panel.y + 316);
+  ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.font = '400 18px system-ui, sans-serif'; drawWrappedText(ctx, content.intro, x, panel.y + 370, photoX - x - 28, 27, 3);
+  const linksY = panel.y + 450, gap = 14, cardW = (right - x - gap) / 2, cardH = 132; storyLinks().forEach((item, index) => { const col = index % 2, row = Math.floor(index / 2), cx = x + col * (cardW + gap), cy = linksY + row * (cardH + gap); ctx.strokeStyle = "rgba(255,255,255,.2)"; ctx.strokeRect(cx, cy, cardW, cardH); ctx.fillStyle = "#88a8ff"; ctx.font = '700 14px "SFMono-Regular", Consolas, monospace'; ctx.fillText(item.index, cx + 14, cy + 24); ctx.fillStyle = white; setFittedFont(ctx, item.title.toUpperCase(), cardW - 28, 27, 20, '"Arial Black", Arial, sans-serif', 900); ctx.fillText(item.title.toUpperCase(), cx + 14, cy + 60); ctx.fillStyle = mutedWhite; ctx.font = '400 14px system-ui, sans-serif'; drawWrappedText(ctx, item.detail, cx + 14, cy + 88, cardW - 28, 19, 2); });
+  const qr = 126, qx = x, qy = panel.y + panel.h - 158; ctx.fillStyle = paper; ctx.fillRect(qx, qy, qr, qr); ctx.drawImage(assets.qrImage, qx + 10, qy + 10, qr - 20, qr - 20); ctx.fillStyle = white; ctx.font = '700 15px "SFMono-Regular", Consolas, monospace'; ctx.fillText(content.scanOpen, qx + 154, qy + 35); ctx.font = '900 36px "Arial Black", Arial, sans-serif'; ctx.fillText("RAFI LINKS", qx + 154, qy + 82); ctx.fillStyle = mutedWhite; ctx.font = '400 14px system-ui, sans-serif'; drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), qx + 154, qy + 110, right - (qx + 154), 19, 2);
+  ctx.save(); ctx.translate(width - 36, 208); ctx.rotate(Math.PI / 2); ctx.fillStyle = white; setFittedFont(ctx, content.side, 560, 15, 10, '"SFMono-Regular", Consolas, monospace', 700); ctx.fillText(content.side, 0, 0); ctx.restore();
+}
+
+function drawSquareMinimal(ctx, width, height, assets) {
+  const blue = "#2156d8", ink = "#111111", paper = "#f4f3ef", muted = "#666660", content = storyT(), pad = 58;
+  ctx.fillStyle = paper; ctx.fillRect(0, 0, width, height); drawStoryGrid(ctx, width, height, 64, .065, "17,17,17"); ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.strokeRect(pad, pad, width - pad * 2, height - pad * 2);
+  ctx.fillStyle = blue; ctx.fillRect(pad, pad, 76, 76); ctx.fillStyle = "#fff"; ctx.font = '900 42px "Arial Black", Arial, sans-serif'; ctx.fillText("R", pad + 23, pad + 53);
+  ctx.fillStyle = ink; ctx.font = '700 17px "SFMono-Regular", Consolas, monospace'; ctx.fillText("MUHAMMAD RAFI PRIYO", pad + 100, pad + 32); ctx.fillStyle = muted; setFittedFont(ctx, content.personalIndex, 390, 15, 11, 'system-ui, sans-serif', 500); ctx.fillText(content.personalIndex, pad + 100, pad + 61);
+  ctx.font = '900 76px "Arial Black", Arial, sans-serif'; ctx.fillStyle = ink; ctx.fillText("RAFI", pad + 18, 240); ctx.strokeStyle = ink; ctx.lineWidth = 2.5; ctx.strokeText("LINKS", pad + 62, 308);
+  const photoX = 660, photoY = 150, photoW = 250, photoH = 280; drawProfileCrop(ctx, assets.profileImage, photoX, photoY, photoW, photoH, true); ctx.strokeStyle = ink; ctx.strokeRect(photoX, photoY, photoW, photoH);
+  ctx.fillStyle = muted; ctx.font = '400 18px system-ui, sans-serif'; drawWrappedText(ctx, content.minimalIntro, pad + 20, 358, 470, 26, 3);
+  const linksY = 478, gap = 14, cardW = (width - pad * 2 - gap) / 2, cardH = 128; storyLinks().forEach((item, index) => { const col = index % 2, row = Math.floor(index / 2), x = pad + col * (cardW + gap), y = linksY + row * (cardH + gap); ctx.strokeStyle = "rgba(17,17,17,.35)"; ctx.strokeRect(x, y, cardW, cardH); ctx.fillStyle = blue; ctx.font = '700 14px "SFMono-Regular", Consolas, monospace'; ctx.fillText(item.index, x + 14, y + 23); ctx.fillStyle = ink; setFittedFont(ctx, item.title.toUpperCase(), cardW - 28, 27, 20, '"Arial Black", Arial, sans-serif', 900); ctx.fillText(item.title.toUpperCase(), x + 14, y + 58); ctx.fillStyle = muted; ctx.font = '400 14px system-ui, sans-serif'; drawWrappedText(ctx, item.detail, x + 14, y + 86, cardW - 28, 18, 2); });
+  const q = 118, qx = pad, qy = height - pad - q; ctx.fillStyle = paper; ctx.fillRect(qx, qy, q, q); ctx.strokeStyle = ink; ctx.strokeRect(qx, qy, q, q); ctx.drawImage(assets.qrImage, qx + 9, qy + 9, q - 18, q - 18); ctx.fillStyle = blue; ctx.font = '700 14px "SFMono-Regular", Consolas, monospace'; ctx.fillText(content.directAccess, qx + 144, qy + 31); ctx.fillStyle = ink; ctx.font = '900 34px "Arial Black", Arial, sans-serif'; ctx.fillText("RAFI LINKS", qx + 144, qy + 73); ctx.fillStyle = muted; ctx.font = '400 14px system-ui, sans-serif'; drawWrappedText(ctx, STORY_URL.replace(/^https?:\/\//, ""), qx + 144, qy + 101, 480, 19, 2);
+}
+
+async function renderStoryCard(variant = currentStoryVariant, format = currentShareFormat) {
   if (!storyCanvas) return null;
   if (document.fonts?.ready) {
     try { await document.fonts.ready; } catch {}
@@ -1113,6 +1139,9 @@ async function renderStoryCard(variant = currentStoryVariant) {
 
   const ctx = storyCanvas.getContext("2d");
   if (!ctx) return null;
+  const square = format === "square";
+  storyCanvas.width = 1080;
+  storyCanvas.height = square ? 1080 : 1920;
   ctx.clearRect(0, 0, storyCanvas.width, storyCanvas.height);
 
   const [qrImage, profileImage] = await Promise.all([
@@ -1121,8 +1150,14 @@ async function renderStoryCard(variant = currentStoryVariant) {
   ]);
   const assets = { qrImage, profileImage };
 
-  if (variant === "minimal") drawMinimalStory(ctx, storyCanvas.width, storyCanvas.height, assets);
-  else drawEditorialStory(ctx, storyCanvas.width, storyCanvas.height, assets);
+  if (square) {
+    if (variant === "minimal") drawSquareMinimal(ctx, storyCanvas.width, storyCanvas.height, assets);
+    else drawSquareEditorial(ctx, storyCanvas.width, storyCanvas.height, assets);
+  } else if (variant === "minimal") {
+    drawMinimalStory(ctx, storyCanvas.width, storyCanvas.height, assets);
+  } else {
+    drawEditorialStory(ctx, storyCanvas.width, storyCanvas.height, assets);
+  }
 
   return new Promise((resolve, reject) => {
     storyCanvas.toBlob((blob) => {
@@ -1133,19 +1168,19 @@ async function renderStoryCard(variant = currentStoryVariant) {
       if (storyObjectUrl) URL.revokeObjectURL(storyObjectUrl);
       storyObjectUrl = URL.createObjectURL(blob);
       if (storyPreview) storyPreview.src = storyObjectUrl;
-      resolve(new File([blob], storyFileName(variant), { type: "image/png" }));
+      resolve(new File([blob], storyFileName(variant, format), { type: "image/png" }));
     }, "image/png");
   });
 }
 
-async function ensureStoryFile(variant = currentStoryVariant) {
-  return renderStoryCard(variant);
+async function ensureStoryFile(variant = currentStoryVariant, format = currentShareFormat) {
+  return renderStoryCard(variant, format);
 }
 
 async function openStoryDialog() {
   if (!storyDialog) return;
   try {
-    await ensureStoryFile(currentStoryVariant);
+    await ensureStoryFile(currentStoryVariant, currentShareFormat);
     if (typeof storyDialog.showModal === "function") storyDialog.showModal();
     else storyDialog.setAttribute("open", "open");
   } catch {
@@ -1159,12 +1194,12 @@ function closeStoryDialog() {
   else storyDialog.removeAttribute("open");
 }
 
-async function downloadStory(variant = currentStoryVariant) {
+async function downloadStory(variant = currentStoryVariant, format = currentShareFormat) {
   try {
-    await ensureStoryFile(variant);
+    await ensureStoryFile(variant, format);
     const link = document.createElement("a");
     link.href = storyObjectUrl;
-    link.download = storyFileName(variant);
+    link.download = storyFileName(variant, format);
     document.body.append(link);
     link.click();
     link.remove();
@@ -1176,7 +1211,7 @@ async function downloadStory(variant = currentStoryVariant) {
 
 async function shareStoryFile() {
   try {
-    const storyFile = await ensureStoryFile(currentStoryVariant);
+    const storyFile = await ensureStoryFile(currentStoryVariant, currentShareFormat);
     const shareData = {
       files: [storyFile],
       title: currentStoryVariant === "minimal" ? "Rafi Links Story Minimal" : "Rafi Links Story Editorial",
@@ -1191,7 +1226,7 @@ async function shareStoryFile() {
         if (error.name === "AbortError") return;
       }
     }
-    await downloadStory(currentStoryVariant);
+    await downloadStory(currentStoryVariant, currentShareFormat);
   } catch {
     showToast(t("storyShareError"));
   }
@@ -1200,19 +1235,30 @@ async function shareStoryFile() {
 async function handleVariantChange(variant) {
   setStoryVariant(variant);
   if (storyDialog?.open) {
-    try { await ensureStoryFile(variant); }
+    try { await ensureStoryFile(variant, currentShareFormat); }
+    catch { showToast(t("storyVariantError")); }
+  }
+}
+
+async function handleShareFormatChange(format) {
+  setShareFormat(format);
+  if (storyDialog?.open) {
+    try { await ensureStoryFile(currentStoryVariant, currentShareFormat); }
     catch { showToast(t("storyVariantError")); }
   }
 }
 
 shareButton?.addEventListener("click", sharePage);
 storyButton?.addEventListener("click", openStoryDialog);
-quickDownloadButton?.addEventListener("click", () => downloadStory("aesthetic"));
+quickDownloadButton?.addEventListener("click", () => downloadStory("editorial", "story"));
 storyShareButton?.addEventListener("click", shareStoryFile);
-storyDownloadButton?.addEventListener("click", () => downloadStory(currentStoryVariant));
+storyDownloadButton?.addEventListener("click", () => downloadStory(currentStoryVariant, currentShareFormat));
 storyCloseButton?.addEventListener("click", closeStoryDialog);
 storyVariantButtons.forEach((button) => {
   button.addEventListener("click", () => handleVariantChange(button.dataset.storyVariant));
+});
+shareFormatButtons.forEach((button) => {
+  button.addEventListener("click", () => handleShareFormatChange(button.dataset.shareFormat));
 });
 languageSelect?.addEventListener("change", () => applyLanguage(languageSelect.value));
 
@@ -1228,5 +1274,6 @@ document.addEventListener("keydown", (event) => {
 
 let savedLanguage = null;
 try { savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY); } catch {}
+setShareFormat("story");
 applyLanguage(savedLanguage && TRANSLATIONS[savedLanguage] ? savedLanguage : "id", false);
 setupScrollReveal();
